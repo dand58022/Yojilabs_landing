@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { useEffect } from "react";
 import styles from "@/components/brand/yojilabs-loader.module.css";
 
@@ -7,6 +8,7 @@ interface YojiLabsLoaderProps {
   size?: "sm" | "md" | "lg";
   variant?: "mark" | "full";
   loop?: boolean;
+  timingPreset?: "default" | "startup";
   className?: string;
   onComplete?: () => void;
 }
@@ -19,6 +21,7 @@ export function YojiLabsLoader({
   size = "md",
   variant = "full",
   loop = false,
+  timingPreset = "default",
   className,
   onComplete,
 }: YojiLabsLoaderProps) {
@@ -43,6 +46,15 @@ export function YojiLabsLoader({
     };
   }, [loop, onComplete]);
 
+  const timingStyles: CSSProperties | undefined =
+    timingPreset === "startup"
+      ? {
+          ["--loader-duration" as string]: "780ms",
+          ["--loader-delay-wordmark" as string]: "420ms",
+          ["--loader-wordmark-duration" as string]: "340ms",
+        }
+      : undefined;
+
   return (
     <div
       className={joinClasses(
@@ -51,6 +63,7 @@ export function YojiLabsLoader({
         loop && styles.loop,
         className,
       )}
+      style={timingStyles}
       aria-label="YojiLabs loading"
       role="status"
     >

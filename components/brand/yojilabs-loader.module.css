@@ -1,6 +1,7 @@
 .root {
   --loader-duration: 820ms;
   --loader-delay-wordmark: 300ms;
+  --loader-wordmark-duration: 680ms;
   --loader-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --loader-mark-width: 3.5rem;
   --loader-wordmark-size: 0.84rem;
@@ -74,7 +75,7 @@
   text-transform: uppercase;
   white-space: nowrap;
   animation:
-    wordmark-enter calc(var(--loader-duration) - 140ms) var(--loader-ease)
+    wordmark-enter var(--loader-wordmark-duration) var(--loader-ease)
       var(--loader-delay-wordmark) forwards;
 }
 

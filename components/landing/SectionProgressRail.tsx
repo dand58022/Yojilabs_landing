@@ -17,6 +17,7 @@ const sections: readonly RailSection[] = [
 
 export function SectionProgressRail() {
   const [activeId, setActiveId] = useState(sections[0].id);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -114,28 +115,34 @@ export function SectionProgressRail() {
         <div className="flex flex-col gap-6">
           {sections.map((section) => {
             const isActive = activeId === section.id;
+            const isExpanded = expandedId === section.id;
+            const showStep = isActive || isExpanded;
 
             return (
               <button
                 key={section.id}
                 type="button"
                 aria-current={isActive ? "location" : undefined}
-                className={`group -ml-1 flex items-center gap-3 rounded-full px-1 py-1 text-left transition-all duration-[var(--motion-standard)] ease-[var(--ease-enter)] ${
+                className={`group -ml-1 flex min-h-11 items-center gap-3 rounded-full px-2.5 py-2 text-left transition-all duration-[var(--motion-standard)] ease-[var(--ease-enter)] ${
                   isActive
-                    ? "bg-background/92 shadow-[0_10px_30px_rgba(48,24,10,0.08)] backdrop-blur-sm"
+                    ? "bg-background/95 shadow-[0_12px_32px_rgba(48,24,10,0.08)] backdrop-blur-sm"
                     : "bg-transparent"
                 }`}
+                onMouseEnter={() => setExpandedId(section.id)}
+                onMouseLeave={() => setExpandedId(null)}
+                onFocus={() => setExpandedId(section.id)}
+                onBlur={() => setExpandedId(null)}
                 onClick={() => scrollToSection(section.id)}
               >
                 <span
-                  className={`relative flex h-5 w-5 items-center justify-center rounded-full border transition-all duration-[var(--motion-standard)] ease-[var(--ease-enter)] ${
+                  className={`relative flex h-6 w-6 items-center justify-center rounded-full border transition-all duration-[var(--motion-standard)] ease-[var(--ease-enter)] ${
                     isActive
-                      ? "border-accent bg-accent shadow-[0_0_0_4px_rgba(211,95,57,0.12)]"
-                      : "border-border bg-background group-hover:border-accent/60"
+                      ? "border-accent bg-accent shadow-[0_0_0_5px_rgba(211,95,57,0.13)]"
+                      : "border-border bg-background group-hover:border-accent/60 group-focus-visible:border-accent/60"
                   }`}
                 >
                   <span
-                    className={`h-1.5 w-1.5 rounded-full transition-colors duration-[var(--motion-standard)] ${
+                    className={`h-2 w-2 rounded-full transition-colors duration-[var(--motion-standard)] ${
                       isActive ? "bg-white" : "bg-border"
                     }`}
                   />
@@ -143,7 +150,7 @@ export function SectionProgressRail() {
                 <span className="flex items-center gap-2">
                   <span
                     className={`inline-flex overflow-hidden whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.2em] transition-all duration-[var(--motion-standard)] ease-[var(--ease-enter)] ${
-                      isActive
+                      showStep
                         ? "max-w-8 opacity-100 text-accent"
                         : "max-w-0 opacity-0 text-text-muted"
                     }`}
@@ -152,7 +159,7 @@ export function SectionProgressRail() {
                   </span>
                   <span
                     className={`inline-flex overflow-hidden whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.18em] text-text-muted transition-all duration-[var(--motion-standard)] ease-[var(--ease-enter)] ${
-                      isActive ? "max-w-32 opacity-100" : "max-w-0 opacity-0"
+                      isExpanded ? "max-w-36 opacity-100" : "max-w-0 opacity-0"
                     }`}
                   >
                     {section.label}

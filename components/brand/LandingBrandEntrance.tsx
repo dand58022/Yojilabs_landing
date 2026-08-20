@@ -9,8 +9,8 @@ export function LandingBrandEntrance() {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const visibleDuration = mediaQuery.matches ? 120 : 920;
-    const fadeDuration = mediaQuery.matches ? 0 : 180;
+    const visibleDuration = mediaQuery.matches ? 120 : 1120;
+    const fadeDuration = mediaQuery.matches ? 0 : 240;
 
     const fadeTimer = window.setTimeout(() => {
       setIsVisible(false);
@@ -30,5 +30,12 @@ export function LandingBrandEntrance() {
     return null;
   }
 
-  return <YojiLabsLoaderOverlay visible={isVisible} size="md" variant="full" />;
+  return (
+    <YojiLabsLoaderOverlay
+      visible={isVisible}
+      size="md"
+      variant="full"
+      timingPreset="startup"
+    />
+  );
 }

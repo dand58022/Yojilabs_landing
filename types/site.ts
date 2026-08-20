@@ -98,6 +98,7 @@ export interface ProcessStepContent {
 export interface DemoMetric {
   readonly label: string;
   readonly value: string;
+  readonly context?: string;
   readonly trend: "up" | "down" | "neutral";
   readonly delta: string;
 }

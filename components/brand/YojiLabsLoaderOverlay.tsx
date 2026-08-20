@@ -7,6 +7,7 @@ interface YojiLabsLoaderOverlayProps {
   loop?: boolean;
   size?: "sm" | "md" | "lg";
   variant?: "mark" | "full";
+  timingPreset?: "default" | "startup";
   onComplete?: () => void;
 }
 
@@ -15,6 +16,7 @@ export function YojiLabsLoaderOverlay({
   loop = false,
   size = "lg",
   variant = "full",
+  timingPreset = "default",
   onComplete,
 }: YojiLabsLoaderOverlayProps) {
   return (
@@ -28,6 +30,7 @@ export function YojiLabsLoaderOverlay({
         size={size}
         variant={variant}
         loop={loop}
+        timingPreset={timingPreset}
         onComplete={onComplete}
       />
     </div>
