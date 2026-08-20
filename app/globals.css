@@ -70,6 +70,13 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 6.5rem;
+    scroll-snap-type: y proximity;
+  }
+}
+
 body {
   min-height: 100vh;
   background:
@@ -164,6 +171,16 @@ main {
 .hero-shell {
   width: min(100% - 2rem, var(--hero-width));
   margin-inline: auto;
+}
+
+.page-section {
+  scroll-margin-top: 6.5rem;
+}
+
+@media (min-width: 768px) {
+  .page-section {
+    scroll-snap-align: start;
+  }
 }
 
 .prose-measure {

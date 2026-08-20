@@ -9,7 +9,7 @@ export function ServicesSection() {
   return (
     <section
       id="services"
-      className="section-band section-band--warm scroll-mt-28 border-y border-border/60"
+      className="page-section section-band section-band--warm scroll-mt-28 border-y border-border/60"
     >
       <div className="container-shell py-14 lg:py-[4.5rem]">
         <ViewportReveal className="space-y-10" variant="rise">

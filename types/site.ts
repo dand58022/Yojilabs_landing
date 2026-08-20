@@ -17,7 +17,7 @@ export type InternalRoute =
   | "/start-a-project/book"
   | "/start-a-project/intake";
 
-export type AnchorRoute = "/#services" | "/#demos" | "/#about-contact";
+export type AnchorRoute = "/#services" | "/#demos" | "/#about" | "/#contact";
 
 export type InternalHref = InternalRoute | AnchorRoute;
 
@@ -78,7 +78,7 @@ export interface LinkDefinition {
 }
 
 export interface HeaderNavItem extends LinkDefinition {
-  readonly id: "services" | "demos" | "about-contact";
+  readonly id: "services" | "demos" | "about";
 }
 
 export interface ServiceCardContent {
@@ -271,7 +271,8 @@ export interface LandingSiteContent {
     readonly startProjectIntake: InternalRoute;
     readonly servicesAnchor: AnchorRoute;
     readonly demosAnchor: AnchorRoute;
-    readonly aboutContactAnchor: AnchorRoute;
+    readonly aboutAnchor: AnchorRoute;
+    readonly contactAnchor: AnchorRoute;
   };
   readonly externalReferences: {
     readonly pantryApp: AbsoluteUrl;

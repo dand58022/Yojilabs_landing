@@ -21,7 +21,7 @@ export function HeroScrollCue() {
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute bottom-1 left-1/2 hidden -translate-x-1/2 transition-opacity duration-[var(--motion-standard)] ease-[var(--ease-standard)] lg:flex ${
+      className={`pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 transition-opacity duration-[var(--motion-standard)] ease-[var(--ease-standard)] lg:flex ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     >

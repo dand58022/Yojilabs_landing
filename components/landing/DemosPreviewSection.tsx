@@ -19,7 +19,7 @@ export function DemosPreviewSection() {
   return (
     <section
       id="demos"
-      className="section-band section-band--neutral scroll-mt-28 border-t border-border/60"
+      className="page-section section-band section-band--neutral scroll-mt-28 border-t border-border/60"
     >
       <div className="container-shell py-14 lg:py-[4.5rem]">
         <ViewportReveal

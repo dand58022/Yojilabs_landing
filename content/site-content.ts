@@ -11,7 +11,8 @@ const routeMap = {
   startProjectIntake: "/start-a-project/intake",
   servicesAnchor: "/#services",
   demosAnchor: "/#demos",
-  aboutContactAnchor: "/#about-contact",
+  aboutAnchor: "/#about",
+  contactAnchor: "/#contact",
 } as const;
 
 export const siteContent = {
@@ -27,9 +28,9 @@ export const siteContent = {
       { id: "services", label: "Services", href: routeMap.servicesAnchor },
       { id: "demos", label: "Demos", href: routeMap.demosAnchor },
       {
-        id: "about-contact",
+        id: "about",
         label: "About / Contact",
-        href: routeMap.aboutContactAnchor,
+        href: routeMap.aboutAnchor,
       },
     ],
     primaryCta: {
@@ -196,7 +197,8 @@ export const siteContent = {
       {
         title: "Company",
         links: [
-          { label: "About / Contact", href: routeMap.aboutContactAnchor },
+          { label: "About / Contact", href: routeMap.aboutAnchor },
+          { label: "Contact", href: routeMap.contactAnchor },
           { label: "Demos", href: routeMap.demosAnchor },
           { label: "Start a Project", href: routeMap.startProject },
         ],
