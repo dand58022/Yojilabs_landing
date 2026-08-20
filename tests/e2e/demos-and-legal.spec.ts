@@ -9,7 +9,7 @@ test("demos route renders all three demo directions", async ({ page }) => {
     }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { name: "Kitchen Inventory" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Bookings / Website" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Client Scheduling" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Operations Dashboard" })).toBeVisible();
   await expect(page.getByText("Fuller interactive demos are being prepared.")).toBeVisible();
 });

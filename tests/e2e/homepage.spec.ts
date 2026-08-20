@@ -13,10 +13,10 @@ test("homepage renders key sections and hero demo switching works", async ({ pag
     page.getByRole("heading", { name: "Small team. Big focus." }),
   ).toBeVisible();
 
-  await page.getByRole("button", { name: "Bookings / Website" }).click();
+  await page.getByRole("button", { name: "Client Scheduling" }).click();
   await expect(
     page.getByText(
-      "Bring together a polished front-end site, lead capture, and booking steps that keep visitors on your platform.",
+      "Keep bookings, confirmations, availability, and client context inside one scheduling workflow.",
     ),
   ).toBeVisible();
 
@@ -32,7 +32,7 @@ test("homepage renders key sections and hero demo switching works", async ({ pag
   ).toHaveAttribute("href", "/start-a-project");
   await expect(
     page.getByRole("link", { name: "Explore Demos" }).first(),
-  ).toHaveAttribute("href", "/demos");
+  ).toHaveAttribute("href", "/#demos");
 });
 
 test("general contact form reaches mocked success state", async ({ page }) => {

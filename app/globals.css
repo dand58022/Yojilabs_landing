@@ -225,6 +225,10 @@ main {
   animation-delay: var(--hero-delay, 0ms);
 }
 
+.scroll-cue-arrow {
+  animation: scroll-cue 720ms var(--ease-enter) 2;
+}
+
 .motif-line {
   color: rgba(211, 95, 57, 0.7);
 }
@@ -265,6 +269,19 @@ main {
   }
 }
 
+@keyframes scroll-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: translateY(4px);
+    opacity: 1;
+  }
+}
+
 code {
   font-family: "SFMono-Regular", Consolas, monospace;
 }
@@ -280,6 +297,10 @@ code {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .scroll-cue-arrow {
+    animation: none !important;
   }
 
   *,

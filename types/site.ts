@@ -17,7 +17,7 @@ export type InternalRoute =
   | "/start-a-project/book"
   | "/start-a-project/intake";
 
-export type AnchorRoute = "/#services" | "/#about-contact";
+export type AnchorRoute = "/#services" | "/#demos" | "/#about-contact";
 
 export type InternalHref = InternalRoute | AnchorRoute;
 
@@ -269,6 +269,7 @@ export interface LandingSiteContent {
     readonly startProjectBook: InternalRoute;
     readonly startProjectIntake: InternalRoute;
     readonly servicesAnchor: AnchorRoute;
+    readonly demosAnchor: AnchorRoute;
     readonly aboutContactAnchor: AnchorRoute;
   };
   readonly externalReferences: {

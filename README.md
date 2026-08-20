@@ -29,6 +29,7 @@ Current refinement direction for the homepage:
 Reusable brand primitives added during the flare pass:
 
 - `components/brand/YojiLabsLoader.tsx`
+- `components/brand/YojiLabsLoaderOverlay.tsx`
 - `components/brand/yojilabs-loader.module.css`
 
 Usage example:
@@ -38,6 +39,16 @@ import { YojiLabsLoader } from "@/components/brand/YojiLabsLoader";
 
 export default function Example() {
   return <YojiLabsLoader variant="full" size="md" />;
+}
+```
+
+Overlay usage stays separate so the loader primitive remains portable:
+
+```tsx
+import { YojiLabsLoaderOverlay } from "@/components/brand/YojiLabsLoaderOverlay";
+
+export default function ExampleOverlay() {
+  return <YojiLabsLoaderOverlay variant="full" size="lg" />;
 }
 ```
 

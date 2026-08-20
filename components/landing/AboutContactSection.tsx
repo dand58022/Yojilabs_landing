@@ -2,6 +2,7 @@ import { SystemBackdrop } from "@/components/brand/SystemBackdrop";
 import { GeneralContactForm } from "@/components/forms/GeneralContactForm";
 import { ProcessSteps } from "@/components/landing/ProcessSteps";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
+import { ViewportReveal } from "@/components/landing/ViewportReveal";
 import { WorkflowTransformation } from "@/components/landing/WorkflowTransformation";
 import { siteContent } from "@/content/site-content";
 
@@ -11,11 +12,14 @@ export function AboutContactSection() {
   return (
     <section
       id="about-contact"
-      className="section-band section-band--warm relative border-t border-border/60"
+      className="section-band section-band--warm relative scroll-mt-28 border-t border-border/60"
     >
       <SystemBackdrop className="absolute left-0 top-14 hidden w-[16rem] -translate-x-1/3 text-accent/10 lg:block" mirrored />
       <div className="container-shell py-14 lg:py-[4.5rem]">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
+        <ViewportReveal
+          className="grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]"
+          variant="rise"
+        >
           <div className="space-y-5">
             <SectionEyebrow>{aboutContact.eyebrow}</SectionEyebrow>
             <h2 className="max-w-[13ch] text-4xl sm:text-5xl">
@@ -55,7 +59,7 @@ export function AboutContactSection() {
               />
             </div>
           </div>
-        </div>
+        </ViewportReveal>
       </div>
     </section>
   );

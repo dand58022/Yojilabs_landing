@@ -10,6 +10,7 @@ const routeMap = {
   startProjectBook: "/start-a-project/book",
   startProjectIntake: "/start-a-project/intake",
   servicesAnchor: "/#services",
+  demosAnchor: "/#demos",
   aboutContactAnchor: "/#about-contact",
 } as const;
 
@@ -24,7 +25,7 @@ export const siteContent = {
   navigation: {
     header: [
       { id: "services", label: "Services", href: routeMap.servicesAnchor },
-      { id: "demos", label: "Demos", href: routeMap.demos },
+      { id: "demos", label: "Demos", href: routeMap.demosAnchor },
       {
         id: "about-contact",
         label: "About / Contact",
@@ -54,7 +55,7 @@ export const siteContent = {
       },
       secondaryCta: {
         label: "Explore Demos",
-        href: routeMap.demos,
+        href: routeMap.demosAnchor,
       },
       demoOrder: [
         "kitchen-inventory",
@@ -196,7 +197,7 @@ export const siteContent = {
         title: "Company",
         links: [
           { label: "About / Contact", href: routeMap.aboutContactAnchor },
-          { label: "Demos", href: routeMap.demos },
+          { label: "Demos", href: routeMap.demosAnchor },
           { label: "Start a Project", href: routeMap.startProject },
         ],
       },

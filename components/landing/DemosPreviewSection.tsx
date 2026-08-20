@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
+import { ViewportReveal } from "@/components/landing/ViewportReveal";
 import { demoContent } from "@/content/demo-content";
 import { siteContent } from "@/content/site-content";
 import type { DemoExperience } from "@/types/site";
@@ -16,9 +17,15 @@ export function DemosPreviewSection() {
     .filter((demo) => demo !== undefined);
 
   return (
-    <section className="section-band section-band--neutral border-t border-border/60">
+    <section
+      id="demos"
+      className="section-band section-band--neutral scroll-mt-28 border-t border-border/60"
+    >
       <div className="container-shell py-14 lg:py-[4.5rem]">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-start">
+        <ViewportReveal
+          className="grid gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-start"
+          variant="soft"
+        >
           <div className="space-y-4">
             <SectionEyebrow>{demosPreview.eyebrow}</SectionEyebrow>
             <h2 className="max-w-[12ch] text-4xl sm:text-5xl">{demosPreview.title}</h2>
@@ -100,7 +107,7 @@ export function DemosPreviewSection() {
               );
             })}
           </div>
-        </div>
+        </ViewportReveal>
       </div>
     </section>
   );

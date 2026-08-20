@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SystemBackdrop } from "@/components/brand/SystemBackdrop";
 import { HeroDemoTabs } from "@/components/landing/HeroDemoTabs";
+import { HeroScrollCue } from "@/components/landing/HeroScrollCue";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
 import { demoContent } from "@/content/demo-content";
 import { siteContent } from "@/content/site-content";
@@ -16,7 +17,10 @@ export function HeroSection() {
   }
 
   return (
-    <section className="hero-shell relative grid gap-10 overflow-hidden pb-14 pt-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(520px,1.12fr)] lg:items-start lg:gap-14 lg:pb-16 lg:pt-14">
+    <section
+      id="home"
+      className="hero-shell relative grid scroll-mt-28 gap-10 overflow-hidden pb-18 pt-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(520px,1.12fr)] lg:items-start lg:gap-14 lg:pb-18 lg:pt-14"
+    >
       <SystemBackdrop className="absolute -right-12 top-8 hidden w-[18rem] text-accent/12 lg:block" />
 
       <div className="space-y-7 lg:sticky lg:top-24">
@@ -52,6 +56,8 @@ export function HeroSection() {
       <div className="hero-reveal [--hero-delay:240ms]">
         <HeroDemoTabs demos={demos} defaultDemoId={hero.demoOrder[0]} />
       </div>
+
+      <HeroScrollCue />
     </section>
   );
 }

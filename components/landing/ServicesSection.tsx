@@ -1,14 +1,18 @@
 import { ServiceCard } from "@/components/landing/ServiceCard";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
+import { ViewportReveal } from "@/components/landing/ViewportReveal";
 import { siteContent } from "@/content/site-content";
 
 export function ServicesSection() {
   const { services } = siteContent.home;
 
   return (
-    <section id="services" className="section-band section-band--warm border-y border-border/60">
+    <section
+      id="services"
+      className="section-band section-band--warm scroll-mt-28 border-y border-border/60"
+    >
       <div className="container-shell py-14 lg:py-[4.5rem]">
-        <div className="space-y-10">
+        <ViewportReveal className="space-y-10" variant="rise">
           <div className="space-y-4">
             <SectionEyebrow>{services.eyebrow}</SectionEyebrow>
             <h2 className="max-w-[14ch] text-4xl sm:text-5xl">{services.title}</h2>
@@ -22,7 +26,7 @@ export function ServicesSection() {
               <ServiceCard key={service.id} service={service} />
             ))}
           </div>
-        </div>
+        </ViewportReveal>
       </div>
     </section>
   );

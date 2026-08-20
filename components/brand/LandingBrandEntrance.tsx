@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { YojiLabsLoader } from "@/components/brand/YojiLabsLoader";
+import { YojiLabsLoaderOverlay } from "@/components/brand/YojiLabsLoaderOverlay";
 
 export function LandingBrandEntrance() {
   const [isVisible, setIsVisible] = useState(true);
@@ -30,16 +30,5 @@ export function LandingBrandEntrance() {
     return null;
   }
 
-  return (
-    <div
-      aria-hidden="true"
-      className={`pointer-events-none fixed inset-0 z-50 flex items-start justify-center bg-[linear-gradient(180deg,rgba(250,247,241,0.92)_0%,rgba(250,247,241,0.68)_22%,rgba(250,247,241,0)_52%)] pt-24 transition-opacity duration-[var(--motion-standard)] ${
-        isVisible ? "opacity-100" : "opacity-0"
-      }`}
-    >
-      <div className="rounded-full border border-border/60 bg-surface/88 px-5 py-3 shadow-[var(--shadow-card)] backdrop-blur-sm">
-        <YojiLabsLoader size="md" variant="full" />
-      </div>
-    </div>
-  );
+  return <YojiLabsLoaderOverlay visible={isVisible} size="md" variant="full" />;
 }

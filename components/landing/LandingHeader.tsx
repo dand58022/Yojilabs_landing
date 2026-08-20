@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { siteContent } from "@/content/site-content";
@@ -7,9 +10,29 @@ import { MobileNav } from "@/components/landing/MobileNav";
 export function LandingHeader() {
   const { header } = siteContent.navigation;
   const { primaryCta } = siteContent.navigation;
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateScrollState = () => {
+      setIsScrolled(window.scrollY > 16);
+    };
+
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollState);
+    };
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-xl">
+    <header
+      className={`sticky top-0 z-40 border-b backdrop-blur-xl transition-[background-color,border-color] duration-[var(--motion-standard)] ease-[var(--ease-standard)] ${
+        isScrolled
+          ? "border-border/70 bg-background/94"
+          : "border-border/55 bg-background/82"
+      }`}
+    >
       <div className="hero-shell flex items-center justify-between py-4">
         <Link
           href="/"
