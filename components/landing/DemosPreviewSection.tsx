@@ -9,6 +9,151 @@ function resolveDemoLink(demo: DemoExperience) {
   return demo.destination.link?.href ?? null;
 }
 
+const previewFrameClassName =
+  "h-44 overflow-hidden rounded-[var(--radius-card)] border border-border/75 bg-[#FFF8EE] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]";
+
+const previewHeaderClassName =
+  "flex items-center justify-between gap-3 border-b border-border/60 pb-3";
+
+const previewEyebrowClassName =
+  "text-[10px] font-semibold uppercase tracking-[0.2em] text-text-muted";
+
+const previewValueClassName =
+  "rounded-full border border-border/70 bg-[rgba(255,252,246,0.96)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent";
+
+function WorkPreviewGraphic({ demo }: { demo: DemoExperience }) {
+  if (demo.id === "kitchen-inventory") {
+    return (
+      <div
+        aria-label="Inventory work preview graphic"
+        className={previewFrameClassName}
+      >
+        <div className={previewHeaderClassName}>
+          <p className={previewEyebrowClassName}>Low Stock</p>
+          <span className={previewValueClassName}>4 items</span>
+        </div>
+
+        <div className="mt-2.5 space-y-1.5">
+          {[
+            { label: "Wagyu Beef", value: "LOW", accent: true },
+            { label: "Truffle Oil", value: "LOW", accent: true },
+          ].map((item) => (
+            <div
+              key={item.label}
+              className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 rounded-[0.95rem] border border-border/55 bg-[rgba(255,252,246,0.92)] px-2.5 py-2"
+            >
+              <p className="text-[13px] font-medium text-text-strong">{item.label}</p>
+              <span
+                className={`rounded-full px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] ${
+                  item.accent
+                    ? "bg-[#FFF1E4] text-accent"
+                    : "bg-surface-soft text-text-strong"
+                }`}
+              >
+                {item.value}
+              </span>
+            </div>
+          ))}
+
+          <div className="flex items-center justify-between border-t border-border/55 px-1 pt-2">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">
+              Rice
+            </p>
+            <span className="rounded-full bg-surface-soft px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-text-strong">
+              GOOD
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (demo.id === "bookings-website") {
+    return (
+      <div
+        aria-label="Scheduling work preview graphic"
+        className={previewFrameClassName}
+      >
+        <div className={previewHeaderClassName}>
+          <p className={previewEyebrowClassName}>This Week</p>
+          <span className={previewValueClassName}>12 booked</span>
+        </div>
+
+        <div className="mt-3 grid grid-cols-4 gap-2 text-center">
+          {["Mon", "Tue", "Wed", "Thu"].map((day, index) => (
+            <div key={day} className="space-y-2">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-text-muted">
+                {day}
+              </p>
+              <div className="grid h-20 grid-rows-3 gap-1 rounded-[0.95rem] border border-border/55 bg-[rgba(255,252,246,0.92)] px-2 py-2">
+                {[0, 1, 2].map((slot) => {
+                  const active = (index === 0 && slot === 1) || (index === 1 && slot <= 1) || (index === 2 && slot === 2);
+                  const hold = index === 3 && slot === 1;
+
+                  return (
+                    <span
+                      key={`${day}-${slot}`}
+                      className={`block rounded-full ${
+                        active
+                          ? "bg-[linear-gradient(135deg,#FCE3B0_0%,#F5B17D_100%)]"
+                          : hold
+                            ? "border border-dashed border-border/80 bg-transparent"
+                            : "bg-surface-soft/85"
+                      }`}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      aria-label="Dashboard work preview graphic"
+      className={previewFrameClassName}
+    >
+      <div className={previewHeaderClassName}>
+        <p className={previewEyebrowClassName}>Weekly KPIs</p>
+        <span className={previewValueClassName}>Live</span>
+      </div>
+
+      <div className="mt-3 grid gap-3 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+        <div className="rounded-[0.95rem] border border-border/55 bg-[rgba(255,252,246,0.94)] px-3 py-3">
+          <div className="flex h-14 items-end gap-2">
+            {[32, 50, 42, 64, 58].map((height, index) => (
+              <span
+                key={height}
+                className={`block flex-1 rounded-full ${
+                  index >= 3 ? "bg-accent" : "bg-surface-soft"
+                }`}
+                style={{ height: `${Math.max(18, Math.round(height * 0.72))}px` }}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="space-y-2">
+          {["Revenue", "Workflow", "Service"].map((label, index) => (
+            <div
+              key={label}
+              className={`rounded-[0.9rem] border border-border/55 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] ${
+                index === 0
+                  ? "bg-[#FFF1E4] text-accent"
+                  : "bg-[rgba(255,252,246,0.92)] text-text-muted"
+              }`}
+            >
+              {label}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function DemosPreviewSection() {
   const { demosPreview } = siteContent.home;
   const { demosRoute } = siteContent;
@@ -21,14 +166,16 @@ export function DemosPreviewSection() {
       id="demos"
       className="page-section section-band section-band--neutral scroll-mt-28 border-t border-border/60"
     >
-      <div className="container-shell py-14 lg:py-[4.5rem]">
+      <div className="container-shell relative py-12 lg:py-[4rem]">
+        <div className="pointer-events-none absolute right-[-3rem] top-6 hidden h-44 w-36 rounded-[56%_44%_48%_52%/44%_56%_40%_60%] bg-[linear-gradient(180deg,rgba(251,240,224,0.44),rgba(245,227,197,0.16))] blur-[4px] lg:block" />
+        <div className="soft-dot-grid absolute right-8 top-12 hidden h-16 w-14 opacity-[0.12] lg:block" />
         <ViewportReveal
-          className="grid gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-start"
+          className="grid gap-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start"
           variant="soft"
         >
           <div className="space-y-4">
             <SectionEyebrow>{demosPreview.eyebrow}</SectionEyebrow>
-            <h2 className="max-w-[12ch] text-4xl sm:text-5xl">{demosPreview.title}</h2>
+            <h2 className="editorial-headline max-w-[12ch] text-[3rem] sm:text-[3.7rem]">{demosPreview.title}</h2>
             <p className="max-w-[30rem] text-base leading-7 text-text-muted sm:text-[1.05rem]">
               {demosPreview.intro}
             </p>
@@ -51,7 +198,7 @@ export function DemosPreviewSection() {
               const demoLink = resolveDemoLink(demo);
 
               return (
-                <article key={demo.id} className="card-surface h-full px-5 py-6 sm:px-6">
+                <article key={demo.id} className="card-surface flex h-full flex-col px-5 py-6 sm:px-6">
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
                       {demo.category}
@@ -61,22 +208,14 @@ export function DemosPreviewSection() {
                     </span>
                   </div>
 
-                  <div className="mt-5 rounded-[var(--radius-card)] border border-border/70 bg-[#FFF8EE] px-4 py-4">
-                    <div className="flex items-end gap-2">
-                      {[42, 64, 51, 76].map((height, index) => (
-                        <span
-                          key={height}
-                          className={`block flex-1 rounded-full ${
-                            index === 3 ? "bg-accent" : "bg-surface-soft"
-                          }`}
-                          style={{ height: `${height}px` }}
-                        />
-                      ))}
-                    </div>
+                  <div className="mt-5">
+                    <WorkPreviewGraphic demo={demo} />
                   </div>
 
                   <div className="mt-5 space-y-3">
-                    <h3 className="text-[1.55rem]">{demo.previewCard.title}</h3>
+                    <h3 className="font-sans text-[1.28rem] font-semibold leading-[1.1] tracking-[-0.025em] text-text-strong">
+                      {demo.previewCard.title}
+                    </h3>
                     <p className="text-[0.98rem] leading-7 text-text-muted">
                       {demo.previewCard.useCase}
                     </p>
@@ -89,7 +228,7 @@ export function DemosPreviewSection() {
                     </p>
                   </div>
 
-                  <div className="mt-5">
+                  <div className="mt-auto pt-5">
                     {demoLink ? (
                       <Link
                         href={demoLink}
@@ -99,7 +238,7 @@ export function DemosPreviewSection() {
                       </Link>
                     ) : (
                       <p className="text-sm font-semibold text-text-muted">
-                        Full route and demo handoff land in the next steps.
+                        The full route and demo handoff are coming next.
                       </p>
                     )}
                   </div>

@@ -41,27 +41,20 @@ function ServiceIcon({ id }: { id: ServiceCardContent["id"] }) {
 
 export function ServiceCard({ service }: ServiceCardProps) {
   return (
-    <article className="card-surface group h-full px-5 py-6 transition duration-[var(--motion-standard)] ease-[var(--ease-enter)] hover:-translate-y-0.5 hover:border-accent/35 hover:bg-[linear-gradient(180deg,rgba(252,247,238,1),rgba(250,245,235,0.98))] hover:shadow-[var(--shadow-soft)] focus-visible:-translate-y-0.5 focus-visible:border-accent/35 focus-visible:shadow-[var(--shadow-soft)] sm:px-6" tabIndex={0}>
-      <div className="transition duration-[var(--motion-standard)] ease-[var(--ease-enter)] group-hover:scale-[1.03] group-focus-visible:scale-[1.03]">
+    <article className="card-surface group h-full px-5 py-6 transition duration-[var(--motion-standard)] ease-[var(--ease-enter)] hover:-translate-y-0.5 hover:border-accent/35 hover:shadow-[var(--shadow-soft)] focus-visible:-translate-y-0.5 focus-visible:border-accent/35 focus-visible:shadow-[var(--shadow-soft)] sm:px-6" tabIndex={0}>
+      <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border/70 bg-[#fff9f0] transition duration-[var(--motion-standard)] ease-[var(--ease-enter)] group-hover:scale-[1.03] group-focus-visible:scale-[1.03]">
         <ServiceIcon id={service.id} />
       </div>
       <div className="mt-6 space-y-3">
-        <h3 className="text-[1.7rem]">{service.title}</h3>
+        <h3 className="text-[1.55rem]">{service.title}</h3>
         <p className="text-[0.98rem] leading-7 text-text-muted">
           {service.description}
         </p>
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-2">
-        {service.supportingTopics.map((topic) => (
-          <span
-            key={topic}
-            className="rounded-full border border-border/80 bg-surface-soft px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted transition duration-[var(--motion-standard)] ease-[var(--ease-enter)] group-hover:border-accent/30 group-hover:bg-[#FFF6EA] group-hover:text-accent group-focus-visible:border-accent/30 group-focus-visible:bg-[#FFF6EA] group-focus-visible:text-accent"
-          >
-            {topic}
-          </span>
-        ))}
-      </div>
+      <span className="mt-8 inline-flex text-2xl leading-none text-accent transition-transform duration-[var(--motion-standard)] ease-[var(--ease-enter)] group-hover:translate-x-1 group-focus-visible:translate-x-1">
+        →
+      </span>
     </article>
   );
 }

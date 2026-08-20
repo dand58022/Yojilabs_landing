@@ -6,12 +6,12 @@ export function LandingFooter() {
   const { footer } = siteContent;
 
   return (
-    <footer className="border-t border-border/70 bg-surface/75">
+    <footer className="border-t border-border/70 bg-surface/78">
       <div className="container-shell py-12">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)_minmax(0,0.7fr)_minmax(0,0.7fr)]">
           <div className="space-y-5">
             <BrandLockup size="md" />
-            <p className="max-w-sm text-sm leading-7 text-text-muted">
+            <p className="max-w-xs text-sm leading-7 text-text-muted">
               {footer.brandSummary}
             </p>
           </div>

@@ -3,6 +3,7 @@ import type { LandingSiteContent } from "@/types/site";
 
 const routeMap = {
   home: "/",
+  contact: "/contact",
   demos: "/demos",
   privacy: "/privacy",
   terms: "/terms",
@@ -12,7 +13,6 @@ const routeMap = {
   servicesAnchor: "/#services",
   demosAnchor: "/#demos",
   aboutAnchor: "/#about",
-  contactAnchor: "/#contact",
 } as const;
 
 export const siteContent = {
@@ -25,23 +25,20 @@ export const siteContent = {
   },
   navigation: {
     header: [
+      { id: "work", label: "Work", href: routeMap.demosAnchor },
       { id: "services", label: "Services", href: routeMap.servicesAnchor },
-      { id: "demos", label: "Demos", href: routeMap.demosAnchor },
-      {
-        id: "about",
-        label: "About / Contact",
-        href: routeMap.aboutAnchor,
-      },
+      { id: "about", label: "About", href: routeMap.aboutAnchor },
+      { id: "contact", label: "Contact", href: routeMap.contact },
     ],
     primaryCta: {
       label: "Start a Project",
-      href: routeMap.startProject,
+      href: routeMap.contact,
     },
   },
   sharedLabels: {
     bookCall: "Book a Call",
     sendProjectDetails: "Send Project Details",
-    exploreDemos: "Explore Demos",
+    exploreDemos: "Explore Our Work",
     viewServices: "View Services",
   },
   home: {
@@ -49,14 +46,14 @@ export const siteContent = {
       eyebrow: "Custom software. Real impact.",
       title: "Software built around your business.",
       body:
-        "We build custom tools, automate workflows, and create internal systems that help you run smoother, serve better, and grow with confidence.",
+        "We build custom tools and systems that match your workflow, automate the busywork, and help you scale with confidence.",
       primaryCta: {
-        label: "Start a Project",
-        href: routeMap.startProject,
+        label: "Explore Our Work",
+        href: routeMap.demosAnchor,
       },
       secondaryCta: {
-        label: "Explore Demos",
-        href: routeMap.demosAnchor,
+        label: "Book a Call",
+        href: routeMap.startProjectBook,
       },
       demoOrder: [
         "kitchen-inventory",
@@ -66,106 +63,110 @@ export const siteContent = {
     },
     services: {
       eyebrow: "What we build",
-      title: "Systems that power your business.",
+      title: "Custom systems for how businesses operate.",
       intro:
-        "From public-facing websites to internal workflow tools, we build the software layer that helps teams operate with more clarity and less manual drag.",
+        "From public-facing websites to internal workflow tools, we build the software layer that helps teams move faster with less manual friction.",
       cards: [
         {
           id: "custom-software",
           title: "Custom Software",
           description:
-            "Web apps and internal tools built around the way your team actually works.",
-          supportingTopics: ["Websites", "Internal tools", "Client portals"],
+            "Web apps and internal tools built around your unique workflows.",
+          supportingTopics: ["Web apps", "Internal tools", "Client portals"],
         },
         {
           id: "automation-integrations",
-          title: "Automation and Integrations",
+          title: "Automation & Integrations",
           description:
-            "Connect the tools you already use and cut out repetitive manual work.",
+            "Connect the tools you use and automate repetitive manual work.",
           supportingTopics: ["Workflow automation", "CRM sync", "Lead routing"],
         },
         {
           id: "operations-systems",
           title: "Operations Systems",
           description:
-            "Software that supports inventory, service workflows, and day-to-day operations.",
-          supportingTopics: ["Kitchen systems", "Ops software", "Scheduling flows"],
+            "Solutions for scheduling, inventory, bookings, and day-to-day operations.",
+          supportingTopics: ["Scheduling", "Inventory", "Bookings"],
         },
         {
           id: "data-intelligence",
           title: "Data and Intelligence",
           description:
-            "Clearer reporting, SEO + GEO support, and better data context for faster decisions.",
+            "Dashboards, reporting, and AI-powered insights that help you make better decisions.",
           supportingTopics: ["Dashboards", "SEO + GEO", "Reporting layers"],
         },
       ],
     },
     demosPreview: {
-      eyebrow: "Explore demos",
-      title: "A few ways YojiLabs software shows up in the real world.",
+      eyebrow: "Selected work",
+      title: "A few ways YojiLabs software shows up in real operations.",
       intro:
-        "Interactive examples of custom tools, workflows, and operational systems.",
+        "A concise look at the kinds of systems, workflows, and operator tools we build.",
       demoOrder: [
         "kitchen-inventory",
         "bookings-website",
         "operations-dashboard",
       ],
       cta: {
-        label: "Explore Demos",
+        label: "Explore Our Work",
         href: routeMap.demos,
       },
     },
     aboutContact: {
-      eyebrow: "About YojiLabs",
-      title: "Small team. Big focus.",
+      eyebrow: "How we work",
+      title: "Collaborative from start to scale.",
       description:
-        "We partner closely with operators and business owners to design systems that solve real problems, prep better conversations, and keep momentum after launch.",
+        "We partner closely with your team to understand the real workflow, shape the right solution, and keep improving as the system grows with the business.",
       responseNote: "We typically reply within 1–2 business days.",
       process: [
         {
           id: "discover",
           stepNumber: "01",
           title: "Discover",
-          description: "We learn the workflow, the friction points, and the real business context first.",
+          description: "We learn the workflow and identify the highest-value opportunities first.",
         },
         {
           id: "prototype",
           stepNumber: "02",
           title: "Prototype",
-          description: "We validate the shape of the solution early so the build stays grounded in reality.",
+          description: "We validate the solution quickly so you can react before the full build.",
         },
         {
           id: "build",
           stepNumber: "03",
           title: "Build",
-          description: "We turn the approved direction into software that is clean, practical, and usable.",
+          description: "We build reliable, secure systems with clean documentation and clear ownership.",
         },
         {
           id: "improve",
           stepNumber: "04",
           title: "Improve",
-          description: "We keep refining what works and extend the system as the business evolves.",
+          description: "We iterate, optimize, and scale as the business and workflow evolve.",
         },
       ],
       contact: {
         email: siteConfig.contactEmail,
-        formTitle: "Tell us what you are working on",
+        formTitle: "Tell us what you're working on",
         formDescription:
-          "Use the general contact form for questions, early ideas, or project context before the next step.",
+          "Use the contact form for early ideas, project context, or questions before the next step.",
       },
     },
     finalCta: {
-      title: "Have a workflow that should not be manual?",
+      title: "Let's build software that works for you.",
       description:
-        "Start with the clearest next step and we will route the conversation from there.",
+        "Start with the clearest next step and we'll guide the project from there.",
       primaryCta: {
         label: "Start a Project",
-        href: routeMap.startProject,
+        href: routeMap.contact,
+      },
+      secondaryCta: {
+        label: "Book a Call",
+        href: routeMap.startProjectBook,
       },
     },
   },
   startProject: {
-    title: "Start your project on-site.",
+    title: "Start your project here.",
     description:
       "YojiLabs is a one-stop shop for websites, operations systems, automation, and internal tools. Choose the path that fits you best: book time first, or send enough detail that the follow-up call can start from something concrete.",
     primaryAction: {
@@ -178,7 +179,7 @@ export const siteContent = {
     },
   },
   demosRoute: {
-    title: "Explore the product directions we are building around.",
+    title: "Explore the product directions we're building around.",
     description:
       "These previews show how YojiLabs software can support inventory, client conversion, and broader operational visibility.",
     preparationNote: "Fuller interactive demos are being prepared.",
@@ -190,17 +191,17 @@ export const siteContent = {
   },
   footer: {
     brandSummary:
-      "Custom software, automation, websites, and operations systems for teams that want cleaner workflows and clearer momentum.",
+      "Custom software and automation for businesses that want to operate better.",
     contactLabel: "Contact",
     email: siteConfig.contactEmail,
     linkGroups: [
       {
         title: "Company",
         links: [
-          { label: "About / Contact", href: routeMap.aboutAnchor },
-          { label: "Contact", href: routeMap.contactAnchor },
-          { label: "Demos", href: routeMap.demosAnchor },
-          { label: "Start a Project", href: routeMap.startProject },
+          { label: "About", href: routeMap.aboutAnchor },
+          { label: "Work", href: routeMap.demosAnchor },
+          { label: "Contact", href: routeMap.contact },
+          { label: "Start a Project", href: routeMap.contact },
         ],
       },
       {

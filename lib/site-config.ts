@@ -10,8 +10,8 @@ export const siteConfig = {
   deploymentStage: seoEnv.deploymentStage,
   allowIndexing: seoEnv.allowIndexing,
   brand: {
-    logo: "/brand/yojilabs-logo.svg",
-    symbol: "/brand/yojilabs-symbol.svg",
+    logo: "/brand/yojilabs-logo-canonical.png",
+    symbol: "/brand/yojilabs-symbol-canonical.png",
     ogImage: "/brand/og-placeholder.png",
   },
   urls: env,

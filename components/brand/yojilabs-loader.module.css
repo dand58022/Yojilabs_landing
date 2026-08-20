@@ -43,6 +43,9 @@
   position: relative;
   width: var(--loader-mark-width);
   flex: 0 0 auto;
+  opacity: 0;
+  transform: translate3d(-4px, 4px, 0) scale(0.96);
+  animation: mark-enter var(--loader-duration) var(--loader-ease) forwards;
 }
 
 .mark {
@@ -88,6 +91,11 @@
   animation-iteration-count: infinite;
 }
 
+.loop .markWrap {
+  animation-name: mark-loop;
+  animation-iteration-count: infinite;
+}
+
 .loop .wordmark {
   animation-iteration-count: infinite;
   animation-duration: calc(var(--loader-duration) + 160ms);
@@ -121,6 +129,22 @@
   }
 }
 
+@keyframes mark-enter {
+  0% {
+    opacity: 0;
+    transform: translate3d(-4px, 4px, 0) scale(0.96);
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
 @keyframes gold-enter {
   0%,
   26% {
@@ -135,6 +159,19 @@
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes mark-loop {
+  0%,
+  100% {
+    opacity: 0.94;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  45% {
+    opacity: 1;
+    transform: translate3d(-2px, 2px, 0) scale(0.985);
   }
 }
 
@@ -191,9 +228,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .markWrap,
   .orange,
   .gold,
   .wordmark,
+  .loop .markWrap,
   .loop .orange,
   .loop .gold,
   .loop .wordmark {

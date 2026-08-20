@@ -13,7 +13,6 @@ const sections: readonly RailSection[] = [
   { id: "services", step: "02", label: "Systems" },
   { id: "demos", step: "03", label: "Demos" },
   { id: "about", step: "04", label: "About" },
-  { id: "contact", step: "05", label: "Contact" },
 ];
 
 export function SectionProgressRail() {

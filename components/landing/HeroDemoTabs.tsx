@@ -16,7 +16,7 @@ export function HeroDemoTabs({ demos, defaultDemoId }: HeroDemoTabsProps) {
 
   return (
     <div className="space-y-4 lg:space-y-5">
-      <div className="rounded-[calc(var(--radius-panel)+0.125rem)] border border-border/80 bg-surface/75 p-3 shadow-[var(--shadow-card)]">
+      <div className="rounded-[calc(var(--radius-panel)+0.15rem)] border border-border/70 bg-[rgba(252,247,238,0.78)] p-3 shadow-[0_30px_70px_rgba(60,35,12,0.1)] backdrop-blur-sm">
         <div className="flex flex-wrap gap-2.5">
           {demos.map((demo) => {
             const isActive = demo.id === activeDemo.id;
@@ -27,8 +27,8 @@ export function HeroDemoTabs({ demos, defaultDemoId }: HeroDemoTabsProps) {
                 type="button"
                 className={`group relative overflow-hidden rounded-full border px-4 py-2.5 text-sm font-semibold transition ${
                   isActive
-                    ? "border-accent bg-accent text-white"
-                    : "border-border bg-surface text-text-muted hover:border-accent/35 hover:text-accent"
+                    ? "border-accent bg-accent text-white shadow-[0_12px_28px_rgba(211,95,57,0.22)]"
+                    : "border-border/80 bg-surface/95 text-text-muted hover:border-accent/35 hover:text-accent"
                 }`}
                 onClick={() =>
                   startTransition(() => {
@@ -51,7 +51,7 @@ export function HeroDemoTabs({ demos, defaultDemoId }: HeroDemoTabsProps) {
         </div>
       </div>
 
-      <p className="max-w-xl text-sm leading-7 text-text-muted">
+      <p className="max-w-xl rounded-[1rem] border border-border/55 bg-[rgba(255,250,244,0.68)] px-4 py-3 text-sm leading-7 text-text-muted shadow-[0_10px_24px_rgba(39,29,22,0.04)]">
         {activeDemo.heroCaption}
       </p>
 

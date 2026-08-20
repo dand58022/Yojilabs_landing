@@ -31,7 +31,7 @@ export const demoContent = [
         "Simple purchasing and prep visibility for operators and managers.",
         "Grounded in the strongest current YojiLabs proof point.",
       ],
-      availabilityNote: "A live Pantry demo exists today and can be connected to this card later.",
+      availabilityNote: "A live Pantry demo already exists and can be connected to this card later.",
     },
     heroPreview: {
       appName: "Yoji Pantry",
@@ -274,7 +274,7 @@ export const demoContent = [
         {
           label: "Reporting Lag",
           value: "0.8 days",
-          context: "Near real time",
+          context: "Near-real-time",
           trend: "down",
           delta: "Warehouse sync healthy",
         },
@@ -299,7 +299,7 @@ export const demoContent = [
       sideListTitle: "Executive Notes",
       sideListItems: [
         { label: "Top channel", value: "Direct booking", detail: "46% of revenue" },
-        { label: "Slowest handoff", value: "Vendor follow-up", detail: "22 hr avg. response" },
+        { label: "Slowest handoff", value: "Vendor follow-up", detail: "22 hr average response" },
         { label: "Fastest win", value: "Auto shift summary", detail: "Saved 4.6 hrs this week" },
       ],
       lowerPanels: [

@@ -9,9 +9,7 @@ interface ProductPreviewProps {
 const schedulingPlannerColumns = [
   {
     day: "Mon",
-    items: [
-      { title: "Intake", detail: "3:00 PM", accent: true },
-    ],
+    items: [{ title: "Intake", detail: "3:00 PM", accent: true }],
   },
   {
     day: "Tue",
@@ -37,43 +35,176 @@ const schedulingPlannerColumns = [
   },
 ] as const;
 
+const productSidebarItems = [
+  "Overview",
+  "Orders",
+  "Reservations",
+  "Inventory",
+  "Purchases",
+  "Reports",
+  "Team",
+  "Settings",
+] as const;
+
+function ProductNavIcon({ label, active = false }: { label: string; active?: boolean }) {
+  const iconClassName = active ? "text-accent" : "text-text-muted";
+
+  if (label === "Overview") {
+    return (
+      <svg viewBox="0 0 20 20" className={`h-4 w-4 ${iconClassName}`} fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="10" cy="10" r="5.5" />
+        <circle cx="10" cy="10" r="1.5" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+
+  if (label === "Orders") {
+    return (
+      <svg viewBox="0 0 20 20" className={`h-4 w-4 ${iconClassName}`} fill="none" stroke="currentColor" strokeWidth="1.7">
+        <path d="M5 6.5h10M6.5 4h7l1 12h-9L6.5 4Z" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (label === "Reservations") {
+    return (
+      <svg viewBox="0 0 20 20" className={`h-4 w-4 ${iconClassName}`} fill="none" stroke="currentColor" strokeWidth="1.7">
+        <rect x="4.5" y="5.5" width="11" height="10" rx="2" />
+        <path d="M6.5 3.8v3.1M13.5 3.8v3.1M4.5 9.1h11" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (label === "Inventory") {
+    return (
+      <svg viewBox="0 0 20 20" className={`h-4 w-4 ${iconClassName}`} fill="none" stroke="currentColor" strokeWidth="1.7">
+        <path d="M5.5 6.5 10 4l4.5 2.5v7L10 16l-4.5-2.5v-7Z" strokeLinejoin="round" />
+        <path d="M5.5 6.5 10 9l4.5-2.5" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (label === "Purchases") {
+    return (
+      <svg viewBox="0 0 20 20" className={`h-4 w-4 ${iconClassName}`} fill="none" stroke="currentColor" strokeWidth="1.7">
+        <path d="M5 5.5h2l1.2 6.2h6.4l1.2-4.8H7.8" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="8.6" cy="14.6" r="1" fill="currentColor" stroke="none" />
+        <circle cx="14" cy="14.6" r="1" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+
+  if (label === "Reports") {
+    return (
+      <svg viewBox="0 0 20 20" className={`h-4 w-4 ${iconClassName}`} fill="none" stroke="currentColor" strokeWidth="1.7">
+        <path d="M5 15V9M10 15V5M15 15v-7" strokeLinecap="round" />
+        <path d="M4.5 15.5h11" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (label === "Team") {
+    return (
+      <svg viewBox="0 0 20 20" className={`h-4 w-4 ${iconClassName}`} fill="none" stroke="currentColor" strokeWidth="1.7">
+        <circle cx="8" cy="8" r="2.5" />
+        <circle cx="13.4" cy="9.2" r="1.9" />
+        <path d="M4.8 15c.5-2.1 2-3.3 4.2-3.3S12.7 12.9 13.2 15M12.6 14.8c.3-1.3 1.2-2 2.7-2 1.1 0 1.9.4 2.5 1.2" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 20 20" className={`h-4 w-4 ${iconClassName}`} fill="none" stroke="currentColor" strokeWidth="1.7">
+      <circle cx="10" cy="10" r="3" />
+      <path d="M10 4.5v1.2M10 14.3v1.2M15.5 10h-1.2M5.7 10H4.5M13.9 6.1l-.8.8M6.9 13.1l-.8.8M13.9 13.9l-.8-.8M6.9 6.9l-.8-.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function DemoFrameShell({
-  eyebrow,
+  appName,
   title,
+  subtitle,
   status,
+  navAriaLabel,
+  activeNavItem,
   actions,
   children,
 }: {
-  eyebrow: string;
+  appName: string;
   title: string;
+  subtitle: string;
   status: string;
+  navAriaLabel: string;
+  activeNavItem: string;
   actions?: ReactNode;
   children: ReactNode;
 }) {
   return (
-    <div className="flex h-full flex-col rounded-[calc(var(--radius-card)+0.2rem)] border border-border/75 bg-surface shadow-[0_28px_64px_rgba(48,24,10,0.08)]">
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/70 px-4 py-3 sm:px-5">
+    <div className="flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-border/80 bg-[linear-gradient(180deg,rgba(255,252,246,0.98),rgba(250,242,230,0.96))] shadow-[0_30px_70px_rgba(48,24,10,0.12)]">
+      <div className="flex items-center justify-between gap-4 border-b border-border/65 bg-[rgba(255,252,246,0.92)] px-4 py-3 sm:px-5">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-accent/75" />
-            <span className="h-2.5 w-2.5 rounded-full bg-accent-warm/80" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#88A176]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-accent/85" />
+            <span className="h-2.5 w-2.5 rounded-full bg-accent-warm/85" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#8BA472]" />
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
-              {eyebrow}
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
+              {appName}
             </p>
-            <p className="mt-1 text-sm font-semibold text-text-strong">{title}</p>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {actions}
-          <span className="rounded-full border border-border/80 bg-surface-soft px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
-            {status}
-          </span>
+
+        <div className="hidden h-8 w-28 rounded-full border border-border/65 bg-surface-soft/80 md:block" />
+      </div>
+
+      <div className="grid min-h-0 flex-1 md:grid-cols-[10.5rem_minmax(0,1fr)]">
+        <aside
+          role="navigation"
+          aria-label={navAriaLabel}
+          className="border-b border-border/65 bg-[linear-gradient(180deg,rgba(255,248,239,0.92),rgba(247,239,226,0.95))] p-4 md:border-b-0 md:border-r"
+        >
+          <p className="text-lg font-semibold tracking-[-0.03em] text-text-strong">{appName}</p>
+          <div className="mt-4 space-y-1.5">
+            {productSidebarItems.map((item) => {
+              const isActive = item === activeNavItem;
+
+              return (
+                <div
+                  key={item}
+                  className={`flex items-center gap-2.5 rounded-[0.95rem] px-3 py-2.5 text-sm ${
+                    isActive
+                      ? "bg-[#FFF0E4] text-accent shadow-[inset_0_0_0_1px_rgba(211,95,57,0.08)]"
+                      : "text-text-muted"
+                  }`}
+                >
+                  <ProductNavIcon label={item} active={isActive} />
+                  <span className={isActive ? "font-semibold" : "font-medium"}>{item}</span>
+                </div>
+              );
+            })}
+          </div>
+        </aside>
+
+        <div className="min-h-0 bg-[linear-gradient(180deg,rgba(255,252,247,0.96),rgba(252,247,238,0.94))]">
+          <div className="flex flex-wrap items-start justify-between gap-4 border-b border-border/60 px-4 py-4 sm:px-5">
+            <div>
+              <p className="text-[1.05rem] font-semibold tracking-[-0.03em] text-text-strong">{title}</p>
+              <p className="mt-1 text-xs text-text-muted">{subtitle}</p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {actions}
+              <span className="rounded-full border border-border/75 bg-surface px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
+                {status}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex h-full flex-col p-3.5 sm:p-4">{children}</div>
         </div>
       </div>
-      <div className="flex flex-1 flex-col p-3.5 sm:p-4">{children}</div>
     </div>
   );
 }
@@ -88,7 +219,7 @@ function CompactMetric({
   helper?: string;
 }) {
   return (
-    <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-3.5 py-3">
+    <div className="rounded-[var(--radius-card)] border border-border/70 bg-[rgba(255,252,246,0.9)] px-3.5 py-3 shadow-[0_10px_22px_rgba(39,29,22,0.035)]">
       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
         {label}
       </p>
@@ -125,8 +256,7 @@ function CompactTrendChart({
     const x =
       padding.left +
       (points.length === 1 ? usableWidth / 2 : (usableWidth / (points.length - 1)) * index);
-    const y =
-      padding.top + usableHeight - ((point.value - minValue) / range) * usableHeight;
+    const y = padding.top + usableHeight - ((point.value - minValue) / range) * usableHeight;
 
     return { ...point, x, y };
   });
@@ -136,7 +266,7 @@ function CompactTrendChart({
     .join(" ");
 
   return (
-    <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+    <div className="rounded-[var(--radius-card)] border border-border/70 bg-[rgba(255,252,246,0.9)] px-4 py-4 shadow-[0_10px_22px_rgba(39,29,22,0.035)]">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-sm font-semibold text-text-strong">{title}</p>
@@ -218,9 +348,12 @@ function KitchenInventoryPreview({ demo }: ProductPreviewProps) {
 
   return (
     <DemoFrameShell
-      eyebrow={heroPreview.appName}
-      title="Inventory"
+      appName={heroPreview.appName}
+      title="Inventory Overview"
+      subtitle="Track stock levels, reorder timing, and supplier follow-through in one place."
       status={demo.destination.availabilityLabel}
+      navAriaLabel="Kitchen Inventory product navigation"
+      activeNavItem="Inventory"
       actions={
         <button
           type="button"
@@ -235,7 +368,7 @@ function KitchenInventoryPreview({ demo }: ProductPreviewProps) {
           {heroPreview.metrics.slice(0, 2).map((metric) => (
             <div
               key={metric.label}
-              className="rounded-full border border-border/80 bg-[#FFF7EC] px-4 py-2 text-sm font-medium text-text-strong"
+              className="rounded-full border border-border/75 bg-[#FFF7EC] px-4 py-2 text-sm font-medium text-text-strong shadow-[0_8px_18px_rgba(39,29,22,0.03)]"
             >
               <span className="font-semibold">{metric.value}</span> {metric.label}
             </div>
@@ -243,11 +376,11 @@ function KitchenInventoryPreview({ demo }: ProductPreviewProps) {
         </div>
 
         <div className="preview-region [--preview-delay:70ms] grid flex-1 gap-3 xl:grid-cols-[minmax(0,1.32fr)_minmax(13.75rem,0.68fr)]">
-          <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+          <div className="rounded-[var(--radius-card)] border border-border/70 bg-[rgba(255,252,246,0.9)] px-4 py-4 shadow-[0_10px_22px_rgba(39,29,22,0.035)]">
             <div className="flex items-center justify-between gap-3 border-b border-border/65 pb-3">
               <p className="text-sm font-semibold text-text-strong">Inventory</p>
               <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
-                Live status
+                Live Status
               </span>
             </div>
 
@@ -255,7 +388,7 @@ function KitchenInventoryPreview({ demo }: ProductPreviewProps) {
               {primaryItems.map((item, index) => (
                 <div
                   key={item.label}
-                  className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-3 rounded-[var(--radius-control)] bg-surface-soft/70 px-3 py-2.5 text-sm"
+                  className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-3 rounded-[var(--radius-control)] bg-surface-soft/75 px-3 py-2.5 text-sm"
                 >
                   <div className="min-w-0">
                     <p className="truncate font-medium text-text-strong">{item.label}</p>
@@ -283,7 +416,7 @@ function KitchenInventoryPreview({ demo }: ProductPreviewProps) {
             </button>
           </div>
 
-          <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+          <div className="rounded-[var(--radius-card)] border border-border/70 bg-[rgba(255,248,239,0.92)] px-4 py-4 shadow-[0_10px_22px_rgba(39,29,22,0.035)]">
             <div className="border-b border-border/65 pb-3">
               <p className="text-sm font-semibold text-text-strong">Draft Order</p>
               <p className="mt-1 text-xs text-text-muted">Sysco</p>
@@ -293,7 +426,7 @@ function KitchenInventoryPreview({ demo }: ProductPreviewProps) {
               {draftOrder.map((item) => (
                 <div
                   key={item.label}
-                  className="flex items-center justify-between gap-3 rounded-[var(--radius-control)] bg-[#FFF9EF] px-3 py-2.5 text-sm"
+                  className="flex items-center justify-between gap-3 rounded-[var(--radius-control)] bg-[rgba(255,255,255,0.72)] px-3 py-2.5 text-sm"
                 >
                   <span className="text-text-muted">{item.label}</span>
                   <span className="font-medium text-text-strong">{item.value}</span>
@@ -309,7 +442,6 @@ function KitchenInventoryPreview({ demo }: ProductPreviewProps) {
             </button>
           </div>
         </div>
-
       </div>
     </DemoFrameShell>
   );
@@ -320,9 +452,12 @@ function ClientSchedulingPreview({ demo }: ProductPreviewProps) {
 
   return (
     <DemoFrameShell
-      eyebrow={heroPreview.appName}
+      appName={heroPreview.appName}
       title="Client Scheduling"
+      subtitle="Keep bookings, confirmations, and client prep organized before every kickoff."
       status={demo.destination.availabilityLabel}
+      navAriaLabel="Client Scheduling product navigation"
+      activeNavItem="Reservations"
       actions={
         <button
           type="button"
@@ -341,22 +476,22 @@ function ClientSchedulingPreview({ demo }: ProductPreviewProps) {
         </div>
 
         <div className="grid flex-1 gap-3 xl:grid-cols-[minmax(0,1.28fr)_minmax(13.75rem,0.72fr)]">
-          <div className="preview-region [--preview-delay:70ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+          <div className="preview-region [--preview-delay:70ms] rounded-[var(--radius-card)] border border-border/70 bg-[rgba(255,252,246,0.9)] px-4 py-4 shadow-[0_10px_22px_rgba(39,29,22,0.035)]">
             <div className="flex items-center justify-between gap-3 pb-3">
               <div>
                 <p className="text-sm font-semibold text-text-strong">Weekly Planner</p>
                 <p className="mt-1 text-xs text-text-muted">August 2026</p>
               </div>
               <span className="rounded-full bg-surface-soft px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
-                Week view
+                Week View
               </span>
             </div>
 
-            <div className="grid grid-cols-5 gap-2.5 rounded-[var(--radius-card)] border border-border/65 bg-[#FFF9EF] p-3">
+            <div className="grid grid-cols-5 gap-2 rounded-[var(--radius-card)] border border-border/65 bg-[#FFF9EF] p-3">
               {schedulingPlannerColumns.map((column) => (
                 <div
                   key={column.day}
-                  className="rounded-[var(--radius-card)] border border-border/60 bg-surface px-2.5 py-3"
+                  className="min-w-0 rounded-[var(--radius-card)] border border-border/60 bg-[rgba(255,252,246,0.96)] px-1.5 py-3"
                 >
                   <p className="text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">
                     {column.day}
@@ -365,14 +500,16 @@ function ClientSchedulingPreview({ demo }: ProductPreviewProps) {
                     {column.items.map((item) => (
                       <div
                         key={`${column.day}-${item.title}`}
-                        className={`rounded-[0.95rem] px-2.5 py-2 ${
+                        className={`min-w-0 overflow-hidden rounded-[0.95rem] px-1.5 py-2.5 ${
                           item.accent
                             ? "bg-[linear-gradient(135deg,#FCE3B0_0%,#F5B17D_100%)] text-[#6A2A12]"
                             : "bg-surface-soft text-text-muted"
                         }`}
                       >
-                        <p className="text-xs font-semibold">{item.title}</p>
-                        <p className="mt-0.5 text-[11px]">{item.detail}</p>
+                        <p className="whitespace-nowrap text-[10px] font-semibold leading-tight tracking-[-0.01em]">
+                          {item.title}
+                        </p>
+                        <p className="mt-1 text-[9px] leading-tight">{item.detail}</p>
                       </div>
                     ))}
                   </div>
@@ -381,7 +518,7 @@ function ClientSchedulingPreview({ demo }: ProductPreviewProps) {
             </div>
           </div>
 
-          <div className="preview-region [--preview-delay:95ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+          <div className="preview-region [--preview-delay:95ms] rounded-[var(--radius-card)] border border-border/70 bg-[rgba(255,248,239,0.92)] px-4 py-4 shadow-[0_10px_22px_rgba(39,29,22,0.035)]">
             <p className="text-sm font-semibold text-text-strong">{heroPreview.sideListTitle}</p>
             <div className="mt-3 space-y-2.5">
               {heroPreview.sideListItems.map((item, index) => (
@@ -415,9 +552,12 @@ function OperationsDashboardPreview({ demo }: ProductPreviewProps) {
 
   return (
     <DemoFrameShell
-      eyebrow={heroPreview.appName}
+      appName={heroPreview.appName}
       title="Operations Dashboard"
+      subtitle="Surface the metrics, notes, and bottlenecks that keep service moving."
       status={demo.destination.availabilityLabel}
+      navAriaLabel="Operations Dashboard product navigation"
+      activeNavItem="Reports"
       actions={
         <div className="flex flex-wrap items-center gap-2">
           {["Week", "Channel", "Team"].map((filter) => (
@@ -454,7 +594,7 @@ function OperationsDashboardPreview({ demo }: ProductPreviewProps) {
             />
           </div>
 
-          <div className="preview-region [--preview-delay:95ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+          <div className="preview-region [--preview-delay:95ms] rounded-[var(--radius-card)] border border-border/70 bg-[rgba(255,248,239,0.92)] px-4 py-4 shadow-[0_10px_22px_rgba(39,29,22,0.035)]">
             <p className="text-sm font-semibold text-text-strong">{heroPreview.sideListTitle}</p>
             <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-text-muted">
               {automationQueue.map((item) => (
@@ -470,7 +610,7 @@ function OperationsDashboardPreview({ demo }: ProductPreviewProps) {
               {heroPreview.sideListItems.map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-[var(--radius-control)] bg-[#FFF9EF] px-3 py-2.5"
+                  className="rounded-[var(--radius-control)] bg-[rgba(255,255,255,0.72)] px-3 py-2.5"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-sm font-medium text-text-strong">{item.label}</p>
@@ -489,12 +629,13 @@ function OperationsDashboardPreview({ demo }: ProductPreviewProps) {
 
 export function ProductPreview({ demo }: ProductPreviewProps) {
   return (
-    <div className="card-surface overflow-hidden p-4 sm:p-5 lg:min-h-[32.5rem] lg:aspect-[1.42/1] lg:p-6 xl:min-h-[34rem] xl:aspect-[1.46/1]">
+    <div
+      data-testid="product-preview-surface"
+      className="card-surface relative overflow-hidden p-4 sm:p-5 lg:min-h-[32.5rem] lg:aspect-[1.42/1] lg:p-6 xl:min-h-[34rem] xl:aspect-[1.46/1]"
+    >
       {demo.id === "kitchen-inventory" ? <KitchenInventoryPreview demo={demo} /> : null}
       {demo.id === "bookings-website" ? <ClientSchedulingPreview demo={demo} /> : null}
-      {demo.id === "operations-dashboard" ? (
-        <OperationsDashboardPreview demo={demo} />
-      ) : null}
+      {demo.id === "operations-dashboard" ? <OperationsDashboardPreview demo={demo} /> : null}
     </div>
   );
 }

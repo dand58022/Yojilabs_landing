@@ -36,6 +36,7 @@
   --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-exit: cubic-bezier(0.4, 0, 1, 1);
   --font-display-family: var(--font-display), "Helvetica Neue", Arial, sans-serif;
+  --font-editorial-family: var(--font-editorial), Georgia, serif;
   --font-body-family: var(--font-body), Arial, sans-serif;
 }
 
@@ -80,8 +81,9 @@ html {
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(233, 163, 66, 0.08), transparent 26%),
-    linear-gradient(180deg, #fcfaf5 0%, var(--bg) 22%, #f6f0e5 100%);
+    radial-gradient(circle at top left, rgba(233, 163, 66, 0.07), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(211, 95, 57, 0.06), transparent 30%),
+    linear-gradient(180deg, #fffcf7 0%, #faf6ef 16%, var(--bg) 38%, #f6eee1 100%);
   color: var(--text);
   font-family: var(--font-body-family);
   line-height: 1.5;
@@ -129,9 +131,9 @@ h5,
 h6 {
   color: var(--text-strong);
   font-family: var(--font-display-family);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 0.96;
+  font-weight: 550;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
 }
 
 p,
@@ -191,6 +193,13 @@ main {
   font-family: var(--font-display-family);
 }
 
+.editorial-headline {
+  font-family: var(--font-editorial-family);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.88;
+}
+
 .body-text {
   font-family: var(--font-body-family);
 }
@@ -200,6 +209,17 @@ main {
   border-radius: var(--radius-panel);
   background: linear-gradient(180deg, rgba(252, 247, 238, 0.99), rgba(248, 241, 226, 0.94));
   box-shadow: var(--shadow-card);
+}
+
+.soft-dot-grid {
+  background-image: radial-gradient(rgba(211, 95, 57, 0.16) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+.halo-shape {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(1px);
 }
 
 .section-band {
@@ -218,12 +238,21 @@ main {
   z-index: 1;
 }
 
+.section-band > .absolute {
+  position: absolute;
+  z-index: 0;
+}
+
 .section-band--warm::before {
-  background: linear-gradient(180deg, rgba(241, 230, 204, 0.7), rgba(241, 230, 204, 0.52));
+  background:
+    radial-gradient(circle at top right, rgba(245, 220, 182, 0.22), transparent 28%),
+    linear-gradient(180deg, rgba(251, 247, 239, 0.96), rgba(242, 231, 212, 0.76));
 }
 
 .section-band--neutral::before {
-  background: linear-gradient(180deg, rgba(252, 249, 243, 0.94), rgba(248, 245, 238, 0.82));
+  background:
+    radial-gradient(circle at bottom left, rgba(245, 228, 201, 0.16), transparent 24%),
+    linear-gradient(180deg, rgba(255, 252, 246, 0.985), rgba(248, 244, 236, 0.84));
 }
 
 .preview-enter {
@@ -306,8 +335,8 @@ code {
 @media (max-width: 640px) {
   body {
     background:
-      radial-gradient(circle at top center, rgba(233, 163, 66, 0.08), transparent 30%),
-      linear-gradient(180deg, #fcfaf6 0%, var(--bg) 40%, #f5eee2 100%);
+      radial-gradient(circle at top center, rgba(233, 163, 66, 0.08), transparent 28%),
+      linear-gradient(180deg, #fffcf7 0%, var(--bg) 34%, #f5eee2 100%);
   }
 }
 

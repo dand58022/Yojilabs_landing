@@ -28,11 +28,11 @@ export function LandingHeader() {
     <header
       className={`sticky top-0 z-40 border-b backdrop-blur-xl transition-[background-color,border-color] duration-[var(--motion-standard)] ease-[var(--ease-standard)] ${
         isScrolled
-          ? "border-border/70 bg-background/94"
-          : "border-border/55 bg-background/82"
+          ? "border-border/70 bg-background/96"
+          : "border-transparent bg-background/72"
       }`}
     >
-      <div className="hero-shell flex items-center justify-between py-4">
+      <div className="hero-shell flex items-center justify-between py-4 lg:py-5">
         <Link
           href="/"
           className="inline-flex items-center rounded-[var(--radius-control)] px-1.5 py-1 transition hover:opacity-90 focus-visible:outline-offset-4"
@@ -40,12 +40,12 @@ export function LandingHeader() {
           <BrandLockup size="lg" priority />
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-10 lg:flex">
           {header.map((item) => (
             <Link
               key={item.id}
               href={item.href}
-              className="text-sm font-medium text-foreground transition hover:text-accent"
+              className="text-[0.96rem] font-medium text-foreground transition hover:text-accent"
             >
               {item.label}
             </Link>
@@ -55,7 +55,7 @@ export function LandingHeader() {
         <div className="hidden lg:block">
           <Link
             href={primaryCta.href}
-            className="inline-flex items-center justify-center rounded-[var(--radius-card)] bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:bg-accent/90"
+            className="inline-flex items-center justify-center rounded-[var(--radius-card)] bg-accent px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_32px_rgba(211,95,57,0.18)] transition hover:bg-accent/90"
           >
             {primaryCta.label}
           </Link>

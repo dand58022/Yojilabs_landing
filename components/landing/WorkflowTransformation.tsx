@@ -114,7 +114,7 @@ export function WorkflowTransformation() {
           }`}
           style={{ transitionDelay: "120ms" }}
         >
-          <WorkflowBlock title="After" items={["Inventory", "Booking", "Reporting", "Insights"]} />
+          <WorkflowBlock title="After" items={["Inventory", "Bookings", "Reporting", "Insights"]} />
         </div>
       </div>
     </div>

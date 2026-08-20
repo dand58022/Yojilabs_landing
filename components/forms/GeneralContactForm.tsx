@@ -7,6 +7,7 @@ import type { GeneralContactFormInput } from "@/types/site";
 interface GeneralContactFormProps {
   title: string;
   responseNote: string;
+  embedded?: boolean;
 }
 
 type FormErrors = Partial<Record<keyof GeneralContactFormInput, string>>;
@@ -43,6 +44,7 @@ function validate(values: GeneralContactFormInput) {
 export function GeneralContactForm({
   title,
   responseNote,
+  embedded = false,
 }: GeneralContactFormProps) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -65,6 +67,7 @@ export function GeneralContactForm({
     setSubmitState("submitting");
 
     const result = await submitMockGeneralContact(values, {
+      // Keep the keyword trigger for local QA without exposing debug instructions in the UI.
       simulate: values.subject.toLowerCase().includes("error") ? "error" : "success",
     });
 
@@ -98,7 +101,7 @@ export function GeneralContactForm({
   }
 
   return (
-    <div className="card-surface px-6 py-7 sm:px-7">
+    <div className={embedded ? "px-0 py-0 sm:px-0" : "card-surface px-6 py-7 sm:px-7"}>
       <p className="text-sm font-semibold text-text-strong">{title}</p>
 
       {submitState === "success" ? (
@@ -187,16 +190,13 @@ export function GeneralContactForm({
             </div>
           ) : null}
 
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <p className="text-xs leading-6 text-text-muted">
-              In localhost mode, type “error” in the subject to simulate a failure state.
-            </p>
+          <div className="flex flex-wrap items-center justify-end gap-4">
             <button
               type="submit"
               disabled={submitState === "submitting"}
               className="inline-flex items-center justify-center rounded-[var(--radius-card)] bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {submitState === "submitting" ? "Sending..." : "Send message"}
+              {submitState === "submitting" ? "Sending..." : "Send Message"}
             </button>
           </div>
         </form>

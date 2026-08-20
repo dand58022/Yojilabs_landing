@@ -19,41 +19,72 @@ export function HeroSection() {
   return (
     <section
       id="home"
-      className="page-section hero-shell relative grid scroll-mt-28 gap-10 overflow-hidden pb-24 pt-10 lg:grid-cols-[minmax(0,0.74fr)_minmax(620px,1.26fr)] lg:items-start lg:gap-12 lg:pb-24 lg:pt-14 xl:gap-16"
+      className="page-section hero-shell relative grid scroll-mt-28 gap-12 pb-[4.5rem] pt-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(640px,1.3fr)] lg:items-start lg:gap-14 lg:pb-24 lg:pt-10 xl:gap-16"
     >
-      <SystemBackdrop className="absolute -right-12 top-8 hidden w-[18rem] text-accent/12 lg:block" />
-
-      <div className="space-y-7 lg:sticky lg:top-24">
-        <div className="hero-reveal [--hero-delay:40ms]">
-          <SectionEyebrow>{hero.eyebrow}</SectionEyebrow>
+      <div
+        data-testid="hero-background-composition"
+        className="pointer-events-none absolute inset-y-0 z-0"
+        style={{ left: "calc(50% - 50vw)", right: "calc(50% - 50vw)" }}
+      >
+        <SystemBackdrop className="absolute -left-[4.5rem] top-0 hidden w-[14rem] text-accent/[0.08] lg:block" />
+        <div
+          data-testid="hero-bottom-left-crop"
+          className="absolute -left-[13rem] bottom-[-10.5rem] hidden h-[20rem] w-[38rem] lg:block"
+        >
+          <div className="absolute inset-0 rounded-[60%_40%_68%_32%/46%_54%_46%_54%] bg-[linear-gradient(180deg,rgba(248,211,178,0.38),rgba(238,153,105,0.2))] blur-[4px]" />
+          <div className="absolute right-[4rem] top-[1.5rem] h-[11rem] w-[18rem] rounded-[54%_46%_44%_56%/52%_48%_52%_48%] bg-[rgba(255,243,226,0.28)] blur-[8px]" />
         </div>
+        <div
+          data-testid="hero-ambient-field"
+          className="absolute left-[18%] top-[1.25rem] hidden h-[40rem] w-[82rem] lg:block"
+        >
+          <div className="absolute left-[3%] top-[1.5rem] h-[16rem] w-[34rem] rounded-[52%_48%_44%_56%/54%_46%_54%_46%] bg-[linear-gradient(180deg,rgba(253,244,230,0.7),rgba(248,231,203,0.18))] blur-[5px]" />
+          <div className="absolute inset-x-[8%] top-[4rem] h-[28rem] rounded-[58%_42%_52%_48%/44%_56%_46%_56%] bg-[linear-gradient(180deg,rgba(255,249,239,0.84),rgba(247,230,202,0.22))] blur-[3px]" />
+          <div className="absolute left-[14%] top-[9rem] h-[18rem] w-[30rem] rounded-[44%_56%_40%_60%/60%_40%_60%_40%] bg-[linear-gradient(180deg,rgba(249,226,194,0.28),rgba(255,247,235,0.08))] blur-[8px]" />
+          <div className="absolute right-[10%] top-[5rem] h-[21rem] w-[30rem] rounded-[54%_46%_48%_52%/46%_54%_44%_56%] bg-[linear-gradient(180deg,rgba(248,222,192,0.34),rgba(255,248,237,0.08))] blur-[6px]" />
+          <div className="absolute right-[2%] top-[4.5rem] h-[20rem] w-[26rem] rounded-[66%_34%_52%_48%/42%_58%_40%_60%] bg-[linear-gradient(180deg,rgba(250,232,206,0.38),rgba(255,247,235,0.08))] blur-[4px]" />
+          <div className="soft-dot-grid absolute right-[18%] top-[7rem] h-28 w-20 opacity-[0.1]" />
+          <div className="soft-dot-grid absolute left-[42%] top-[2.75rem] h-20 w-16 opacity-[0.06]" />
+        </div>
+        <div
+          data-testid="hero-terra-edge"
+          className="absolute right-[-6.25rem] top-[6rem] hidden h-[22rem] w-[9rem] lg:block"
+        >
+          <div className="absolute inset-0 rounded-[76%_24%_40%_60%/42%_58%_34%_66%] bg-[linear-gradient(180deg,rgba(241,171,121,0.3),rgba(216,108,67,0.42))] blur-[2px]" />
+          <div className="absolute left-[-5rem] top-[4rem] h-[11rem] w-[6.5rem] rounded-[62%_38%_48%_52%/54%_46%_54%_46%] bg-[rgba(255,244,228,0.2)] blur-[7px]" />
+        </div>
+        <div className="absolute left-[36%] top-[9.5rem] hidden h-[18rem] w-[18rem] rounded-[58%_42%_47%_53%/51%_44%_56%_49%] bg-[rgba(252,233,205,0.12)] blur-[6px] lg:block" />
+        <div className="soft-dot-grid absolute right-[34%] top-[13.5rem] hidden h-16 w-14 opacity-[0.07] xl:block" />
+      </div>
 
-        <div className="space-y-5 hero-reveal [--hero-delay:100ms]">
-          <h1 className="max-w-[9ch] text-5xl sm:text-6xl lg:text-[5.5rem]">
+      <div className="relative z-10 space-y-8 pt-4 lg:sticky lg:top-24 lg:max-w-[35rem] lg:pt-12">
+        <div className="hero-reveal [--hero-delay:40ms] space-y-4">
+          <SectionEyebrow>{hero.eyebrow}</SectionEyebrow>
+          <h1 className="editorial-headline max-w-[8.2ch] text-[3.75rem] sm:text-[4.6rem] lg:text-[5.55rem]">
             {hero.title}
           </h1>
-          <p className="prose-measure max-w-[31rem] text-lg leading-8 text-text-muted sm:text-[1.17rem]">
+          <p className="prose-measure max-w-[29rem] text-lg leading-8 text-text-muted sm:text-[1.16rem]">
             {hero.body}
           </p>
         </div>
 
-        <div className="hero-reveal [--hero-delay:180ms] flex flex-wrap items-center gap-3.5">
+        <div className="hero-reveal [--hero-delay:180ms] flex flex-wrap items-center gap-4">
           <Link
             href={hero.primaryCta.href}
-            className="inline-flex items-center justify-center rounded-[var(--radius-card)] bg-accent px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-accent/90"
+            className="inline-flex items-center justify-center rounded-[var(--radius-card)] bg-accent px-6 py-3.5 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(211,95,57,0.24)] transition hover:bg-accent/90"
           >
             {hero.primaryCta.label}
           </Link>
           <Link
             href={hero.secondaryCta.href}
-            className="inline-flex items-center justify-center rounded-[var(--radius-card)] border border-border bg-surface px-6 py-3.5 text-sm font-semibold text-foreground transition hover:border-accent/35 hover:text-accent"
+            className="inline-flex items-center justify-center rounded-[var(--radius-card)] border border-border/90 bg-surface px-6 py-3.5 text-sm font-semibold text-foreground shadow-[0_10px_24px_rgba(39,29,22,0.06)] transition hover:border-accent/35 hover:text-accent"
           >
             {hero.secondaryCta.label}
           </Link>
         </div>
       </div>
 
-      <div className="hero-reveal [--hero-delay:240ms]">
+      <div className="hero-reveal relative z-10 [--hero-delay:240ms]">
         <HeroDemoTabs demos={demos} defaultDemoId={hero.demoOrder[0]} />
       </div>
 

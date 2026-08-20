@@ -3,6 +3,7 @@
 import type { CSSProperties } from "react";
 import { useEffect } from "react";
 import styles from "@/components/brand/yojilabs-loader.module.css";
+import { siteConfig } from "@/lib/site-config";
 
 interface YojiLabsLoaderProps {
   size?: "sm" | "md" | "lg";
@@ -74,25 +75,14 @@ export function YojiLabsLoader({
         )}
       >
         <span className={styles.markWrap} aria-hidden="true">
-          <svg
-            viewBox="0 0 116 108"
-            fill="none"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={siteConfig.brand.symbol}
+            alt=""
+            width={116}
+            height={114}
             className={styles.mark}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              className={styles.orange}
-              d="M59 8C36 10 19 25 12 46C3 71 14 91 37 99C46 102 56 101 62 98C65 96 66 91 63 88C51 76 45 61 45 45C45 29 51 17 61 10C64 8 62 7 59 8Z"
-              fill="#D35F39"
-            />
-            <circle
-              className={styles.gold}
-              cx="84"
-              cy="62"
-              r="21"
-              fill="#E9A342"
-            />
-          </svg>
+          />
         </span>
 
         {variant === "full" ? (

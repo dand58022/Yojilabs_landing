@@ -10,6 +10,7 @@ export type MaybeAbsoluteUrl = AbsoluteUrl | null;
 
 export type InternalRoute =
   | "/"
+  | "/contact"
   | "/demos"
   | "/privacy"
   | "/terms"
@@ -78,7 +79,7 @@ export interface LinkDefinition {
 }
 
 export interface HeaderNavItem extends LinkDefinition {
-  readonly id: "services" | "demos" | "about";
+  readonly id: "work" | "services" | "about" | "contact";
 }
 
 export interface ServiceCardContent {
@@ -224,6 +225,7 @@ export interface FinalCtaContent {
   readonly title: string;
   readonly description: string;
   readonly primaryCta: LinkDefinition;
+  readonly secondaryCta?: LinkDefinition;
 }
 
 export interface FooterLinkGroup {
@@ -263,6 +265,7 @@ export interface SharedRouteLabels {
 export interface LandingSiteContent {
   readonly routeMap: {
     readonly home: InternalRoute;
+    readonly contact: InternalRoute;
     readonly demos: InternalRoute;
     readonly privacy: InternalRoute;
     readonly terms: InternalRoute;
@@ -272,7 +275,6 @@ export interface LandingSiteContent {
     readonly servicesAnchor: AnchorRoute;
     readonly demosAnchor: AnchorRoute;
     readonly aboutAnchor: AnchorRoute;
-    readonly contactAnchor: AnchorRoute;
   };
   readonly externalReferences: {
     readonly pantryApp: AbsoluteUrl;
