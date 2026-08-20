@@ -5,6 +5,7 @@ dist/
 coverage/
 .turbo/
 .vercel/
+.worktrees/
 
 *.log
 npm-debug.log*
