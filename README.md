@@ -18,6 +18,29 @@ For planning discipline, build conventions, and frontend quality expectations, u
 
 This repo does **not** provide the final visual design system for the landing page. The visual direction comes from the local YojiLabs brand and mockup assets.
 
+Current refinement direction for the homepage:
+
+- preserve the existing YojiLabs structure instead of redesigning from scratch
+- use the harness as process guidance, not as the landing page's final visual source
+- keep Satoshi for hierarchy and Inter for supporting UI
+- favor denser section rhythm over adding filler sections
+- keep demo previews clearly distinct by product type while preserving a shared YojiLabs UI system
+
+Reusable brand primitives added during the flare pass:
+
+- `components/brand/YojiLabsLoader.tsx`
+- `components/brand/yojilabs-loader.module.css`
+
+Usage example:
+
+```tsx
+import { YojiLabsLoader } from "@/components/brand/YojiLabsLoader";
+
+export default function Example() {
+  return <YojiLabsLoader variant="full" size="md" />;
+}
+```
+
 ## Local Development Intent
 
 The landing page is intended to be developed localhost-first until the experience is complete enough to attach to the real root-domain site.

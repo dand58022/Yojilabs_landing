@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { SystemLineAccent } from "@/components/brand/SystemLineAccent";
 
 interface SectionEyebrowProps {
   children: ReactNode;
@@ -7,7 +8,7 @@ interface SectionEyebrowProps {
 export function SectionEyebrow({ children }: SectionEyebrowProps) {
   return (
     <p className="inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-      <span className="h-px w-10 bg-accent/45" />
+      <SystemLineAccent className="h-3 w-[4.15rem] shrink-0 opacity-70" />
       <span>{children}</span>
     </p>
   );

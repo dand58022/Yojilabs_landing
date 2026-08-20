@@ -13,7 +13,7 @@ export function LandingHeader() {
       <div className="hero-shell flex items-center justify-between py-4">
         <Link
           href="/"
-          className="inline-flex items-center rounded-[var(--radius-control)] px-1 py-1 transition hover:opacity-90 focus-visible:outline-offset-4"
+          className="inline-flex items-center rounded-[var(--radius-control)] px-1.5 py-1 transition hover:opacity-90 focus-visible:outline-offset-4"
         >
           <Image
             src={siteConfig.brand.logo}
@@ -21,7 +21,7 @@ export function LandingHeader() {
             width={198}
             height={36}
             priority
-            className="h-auto w-[154px] sm:w-[198px]"
+            className="h-auto w-[170px] sm:w-[222px]"
           />
         </Link>
 

@@ -72,28 +72,28 @@ export const siteContent = {
           id: "custom-software",
           title: "Custom Software",
           description:
-            "Tailored web apps and internal tools built around your workflow instead of forcing you into someone else’s process.",
+            "Web apps and internal tools built around the way your team actually works.",
           supportingTopics: ["Websites", "Internal tools", "Client portals"],
         },
         {
           id: "automation-integrations",
           title: "Automation and Integrations",
           description:
-            "Connect the tools you already use and remove repetitive manual work that slows down your team.",
+            "Connect the tools you already use and cut out repetitive manual work.",
           supportingTopics: ["Workflow automation", "CRM sync", "Lead routing"],
         },
         {
           id: "operations-systems",
           title: "Operations Systems",
           description:
-            "Build the operational backbone for inventory, service workflows, reporting, and day-to-day team coordination.",
+            "Software that supports inventory, service workflows, and day-to-day operations.",
           supportingTopics: ["Kitchen systems", "Ops software", "Scheduling flows"],
         },
         {
           id: "data-intelligence",
           title: "Data and Intelligence",
           description:
-            "Give decision-makers clearer reporting, stronger SEO + GEO support, and the data context they need to act faster.",
+            "Clearer reporting, SEO + GEO support, and better data context for faster decisions.",
           supportingTopics: ["Dashboards", "SEO + GEO", "Reporting layers"],
         },
       ],
@@ -102,7 +102,7 @@ export const siteContent = {
       eyebrow: "Explore demos",
       title: "A few ways YojiLabs software shows up in the real world.",
       intro:
-        "Start with the strongest proof point, then expand into site-led conversion flows and broader operating dashboards.",
+        "Interactive examples of custom tools, workflows, and operational systems.",
       demoOrder: [
         "kitchen-inventory",
         "bookings-website",

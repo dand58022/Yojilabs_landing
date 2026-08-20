@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SystemBackdrop } from "@/components/brand/SystemBackdrop";
 import { HeroDemoTabs } from "@/components/landing/HeroDemoTabs";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
 import { demoContent } from "@/content/demo-content";
@@ -15,20 +16,24 @@ export function HeroSection() {
   }
 
   return (
-    <section className="hero-shell grid gap-14 pb-20 pt-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(460px,1.1fr)] lg:items-start lg:gap-18 lg:pb-28 lg:pt-22">
-      <div className="space-y-8 lg:sticky lg:top-28">
-        <SectionEyebrow>{hero.eyebrow}</SectionEyebrow>
+    <section className="hero-shell relative grid gap-10 overflow-hidden pb-14 pt-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(520px,1.12fr)] lg:items-start lg:gap-14 lg:pb-16 lg:pt-14">
+      <SystemBackdrop className="absolute -right-12 top-8 hidden w-[18rem] text-accent/12 lg:block" />
 
-        <div className="space-y-6">
-          <h1 className="max-w-[10ch] text-5xl sm:text-6xl lg:text-[5.25rem]">
+      <div className="space-y-7 lg:sticky lg:top-24">
+        <div className="hero-reveal [--hero-delay:40ms]">
+          <SectionEyebrow>{hero.eyebrow}</SectionEyebrow>
+        </div>
+
+        <div className="space-y-5 hero-reveal [--hero-delay:100ms]">
+          <h1 className="max-w-[9ch] text-5xl sm:text-6xl lg:text-[5.5rem]">
             {hero.title}
           </h1>
-          <p className="prose-measure text-lg leading-8 text-text-muted sm:text-xl">
+          <p className="prose-measure max-w-[34rem] text-lg leading-8 text-text-muted sm:text-[1.17rem]">
             {hero.body}
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="hero-reveal [--hero-delay:180ms] flex flex-wrap items-center gap-3.5">
           <Link
             href={hero.primaryCta.href}
             className="inline-flex items-center justify-center rounded-[var(--radius-card)] bg-accent px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-accent/90"
@@ -44,7 +49,9 @@ export function HeroSection() {
         </div>
       </div>
 
-      <HeroDemoTabs demos={demos} defaultDemoId={hero.demoOrder[0]} />
+      <div className="hero-reveal [--hero-delay:240ms]">
+        <HeroDemoTabs demos={demos} defaultDemoId={hero.demoOrder[0]} />
+      </div>
     </section>
   );
 }

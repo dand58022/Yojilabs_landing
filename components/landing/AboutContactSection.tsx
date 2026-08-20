@@ -1,6 +1,8 @@
+import { SystemBackdrop } from "@/components/brand/SystemBackdrop";
 import { GeneralContactForm } from "@/components/forms/GeneralContactForm";
 import { ProcessSteps } from "@/components/landing/ProcessSteps";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
+import { WorkflowTransformation } from "@/components/landing/WorkflowTransformation";
 import { siteContent } from "@/content/site-content";
 
 export function AboutContactSection() {
@@ -9,45 +11,49 @@ export function AboutContactSection() {
   return (
     <section
       id="about-contact"
-      className="container-shell border-t border-border/70 py-16 lg:py-20"
+      className="section-band section-band--warm relative border-t border-border/60"
     >
-      <div className="grid gap-12 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
-        <div className="space-y-6">
-          <SectionEyebrow>{aboutContact.eyebrow}</SectionEyebrow>
-          <h2 className="max-w-[13ch] text-4xl sm:text-5xl">
-            {aboutContact.title}
-          </h2>
-          <p className="prose-measure text-base leading-8 text-text-muted sm:text-lg">
-            {aboutContact.description}
-          </p>
-        </div>
+      <SystemBackdrop className="absolute left-0 top-14 hidden w-[16rem] -translate-x-1/3 text-accent/10 lg:block" mirrored />
+      <div className="container-shell py-14 lg:py-[4.5rem]">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
+          <div className="space-y-5">
+            <SectionEyebrow>{aboutContact.eyebrow}</SectionEyebrow>
+            <h2 className="max-w-[13ch] text-4xl sm:text-5xl">
+              {aboutContact.title}
+            </h2>
+            <p className="prose-measure text-base leading-7 text-text-muted sm:text-[1.05rem]">
+              {aboutContact.description}
+            </p>
+          </div>
 
-        <div className="space-y-8">
-          <ProcessSteps steps={aboutContact.process} />
+          <div className="space-y-6">
+            <WorkflowTransformation />
+            <ProcessSteps steps={aboutContact.process} />
 
-          <div className="grid gap-5 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
-            <div className="card-surface px-6 py-7 sm:px-7">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
-                Contact
-              </p>
-              <a
-                href={`mailto:${aboutContact.contact.email}`}
-                className="mt-4 block text-xl font-semibold text-text-strong transition hover:text-accent"
-              >
-                {aboutContact.contact.email}
-              </a>
-              <p className="mt-4 text-sm leading-7 text-text-muted">
-                {aboutContact.contact.formDescription}
-              </p>
-              <div className="mt-6 rounded-[var(--radius-card)] border border-border/80 bg-surface-soft px-4 py-4 text-sm leading-7 text-text-muted">
-                {aboutContact.responseNote}
+            <div className="grid gap-4 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
+              <div className="card-surface px-5 py-6 sm:px-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
+                  Contact
+                </p>
+                <a
+                  href={`mailto:${aboutContact.contact.email}`}
+                  className="mt-4 block text-xl font-semibold text-text-strong transition hover:text-accent"
+                >
+                  {aboutContact.contact.email}
+                </a>
+                <p className="mt-4 text-sm leading-7 text-text-muted">
+                  {aboutContact.contact.formDescription}
+                </p>
+                <div className="mt-6 rounded-[var(--radius-card)] border border-border/80 bg-surface-soft px-4 py-4 text-sm leading-7 text-text-muted">
+                  {aboutContact.responseNote}
+                </div>
               </div>
-            </div>
 
-            <GeneralContactForm
-              title={aboutContact.contact.formTitle}
-              responseNote={aboutContact.responseNote}
-            />
+              <GeneralContactForm
+                title={aboutContact.contact.formTitle}
+                responseNote={aboutContact.responseNote}
+              />
+            </div>
           </div>
         </div>
       </div>
