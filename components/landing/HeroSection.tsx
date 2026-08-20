@@ -19,7 +19,7 @@ export function HeroSection() {
   return (
     <section
       id="home"
-      className="hero-shell relative grid scroll-mt-28 gap-10 overflow-hidden pb-18 pt-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(520px,1.12fr)] lg:items-start lg:gap-14 lg:pb-18 lg:pt-14"
+      className="hero-shell relative grid scroll-mt-28 gap-10 overflow-hidden pb-18 pt-10 lg:grid-cols-[minmax(0,0.74fr)_minmax(620px,1.26fr)] lg:items-start lg:gap-12 lg:pb-18 lg:pt-14 xl:gap-16"
     >
       <SystemBackdrop className="absolute -right-12 top-8 hidden w-[18rem] text-accent/12 lg:block" />
 
@@ -32,7 +32,7 @@ export function HeroSection() {
           <h1 className="max-w-[9ch] text-5xl sm:text-6xl lg:text-[5.5rem]">
             {hero.title}
           </h1>
-          <p className="prose-measure max-w-[34rem] text-lg leading-8 text-text-muted sm:text-[1.17rem]">
+          <p className="prose-measure max-w-[31rem] text-lg leading-8 text-text-muted sm:text-[1.17rem]">
             {hero.body}
           </p>
         </div>

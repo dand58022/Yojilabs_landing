@@ -40,27 +40,27 @@ export const demoContent = [
       metrics: [
         {
           label: "Low Stock",
-          value: "7",
+          value: "4",
           context: "Items below par",
           trend: "down",
-          delta: "2 flagged this morning",
+          delta: "Needs reorder",
         },
         {
-          label: "Pending Orders",
-          value: "4",
-          context: "Awaiting delivery",
+          label: "Critical",
+          value: "2",
+          context: "Need same-day action",
           trend: "up",
-          delta: "Next truck at 11:30 AM",
+          delta: "Before dinner service",
         },
         {
-          label: "Usage Variance",
-          value: "4.3%",
-          context: "Against prep plan",
+          label: "Next Delivery",
+          value: "11:30",
+          context: "Produce arrival",
           trend: "down",
-          delta: "Within weekly threshold",
+          delta: "Veritable Vegetable",
         },
       ],
-      chartTitle: "Ingredient Usage",
+      chartTitle: "Stock Consumption",
       chartSeries: [
         { label: "Mon", value: 42 },
         { label: "Tue", value: 51 },
@@ -85,20 +85,27 @@ export const demoContent = [
           value: "14 lb on hand",
           detail: "Par 12 lb • Chef's Warehouse",
         },
+        {
+          label: "Rice",
+          value: "32 lb on hand",
+          detail: "Par 28 lb • Restaurant Depot",
+        },
       ],
       lowerPanels: [
         {
-          title: "Upcoming Deliveries",
+          title: "Draft Order",
           items: [
-            { label: "Produce", value: "11:30 AM", detail: "Veritable Vegetable" },
-            { label: "Seafood", value: "2:00 PM", detail: "Blue Circle Foods" },
+            { label: "Supplier", value: "Sysco" },
+            { label: "Wagyu Beef", value: "+5.5 kg" },
+            { label: "Atlantic Salmon", value: "+10 lb" },
+            { label: "Est. Total", value: "$348" },
           ],
         },
         {
-          title: "Shift Notes",
+          title: "Reorder Action",
           items: [
-            { label: "Prep team", value: "Two substitutions logged" },
-            { label: "Chef note", value: "Update tasting-menu counts" },
+            { label: "Next step", value: "Review order" },
+            { label: "Priority", value: "Before 4:00 PM" },
           ],
         },
       ],
@@ -202,7 +209,6 @@ export const demoContent = [
           title: "Booking Page",
           items: [
             { label: "/book", value: "Live draft" },
-            { label: "Intake form", value: "Connected" },
             { label: "Auto confirmation", value: "Enabled" },
             { label: "Calendar sync", value: "Healthy" },
           ],
@@ -298,10 +304,11 @@ export const demoContent = [
       ],
       lowerPanels: [
         {
-          title: "Upcoming Reviews",
+          title: "Workflow Health",
           items: [
-            { label: "Ops sync", value: "Monday 9:00 AM" },
-            { label: "Finance recap", value: "Wednesday 1:30 PM" },
+            { label: "Completed", value: "68%" },
+            { label: "In Progress", value: "22%" },
+            { label: "Blocked", value: "10%" },
           ],
         },
         {

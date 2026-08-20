@@ -1,10 +1,6 @@
 import type { ReactNode } from "react";
 
-import {
-  MiniBarChart,
-  MiniLineChart,
-  StatusMeter,
-} from "@/components/landing/DemoCharts";
+import { MiniBarChart, MiniLineChart } from "@/components/landing/DemoCharts";
 import type { DemoExperience } from "@/types/site";
 
 interface ProductPreviewProps {
@@ -12,7 +8,7 @@ interface ProductPreviewProps {
 }
 
 const schedulingWeekDays = ["Mon", "Tue", "Wed", "Thu", "Fri"] as const;
-const schedulingTimeRows = ["9:00 AM", "11:00 AM", "1:00 PM", "3:00 PM", "5:00 PM"] as const;
+const schedulingTimeRows = ["9:00 AM", "11:00 AM", "1:00 PM", "3:00 PM"] as const;
 
 const schedulingEvents = [
   {
@@ -45,56 +41,10 @@ const schedulingEvents = [
   },
 ] as const;
 
-const schedulingHoldSlots = [
+const schedulingHolds = [
   { dayIndex: 1, rowIndex: 2, label: "Hold" },
   { dayIndex: 4, rowIndex: 3, label: "Pending" },
 ] as const;
-
-const inventoryHealthItems = [
-  { label: "Healthy", value: 72, valueLabel: "72%" },
-  { label: "Low Stock", value: 21, valueLabel: "21%" },
-  { label: "Critical", value: 7, valueLabel: "7%" },
-] as const;
-
-const workflowStatusItems = [
-  { label: "Completed", value: 68, valueLabel: "68%" },
-  { label: "In Progress", value: 22, valueLabel: "22%" },
-  { label: "Blocked", value: 10, valueLabel: "10%" },
-] as const;
-
-const revenueChannelItems = [
-  { label: "Direct Booking", value: 46, valueLabel: "46%" },
-  { label: "Website", value: 31, valueLabel: "31%" },
-  { label: "Marketplace", value: 23, valueLabel: "23%" },
-] as const;
-
-function DemoMetricCard({
-  label,
-  value,
-  context,
-  delta,
-  trend,
-}: DemoExperience["heroPreview"]["metrics"][number]) {
-  const trendClass =
-    trend === "down"
-      ? "text-accent"
-      : trend === "up"
-        ? "text-[#3D7B4F]"
-        : "text-text-muted";
-
-  return (
-    <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
-        {label}
-      </p>
-      <p className="mt-3 text-[2rem] font-semibold leading-none text-text-strong">{value}</p>
-      {context ? (
-        <p className="mt-2 text-sm font-medium text-text-strong">{context}</p>
-      ) : null}
-      <p className={`mt-2 text-xs font-medium ${trendClass}`}>{delta}</p>
-    </div>
-  );
-}
 
 function DemoFrameShell({
   eyebrow,
@@ -110,8 +60,8 @@ function DemoFrameShell({
   children: ReactNode;
 }) {
   return (
-    <div className="rounded-[calc(var(--radius-card)+0.2rem)] border border-border/75 bg-surface shadow-[0_28px_64px_rgba(48,24,10,0.08)]">
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/70 px-4 py-3.5 sm:px-5">
+    <div className="flex h-full flex-col rounded-[calc(var(--radius-card)+0.2rem)] border border-border/75 bg-surface shadow-[0_28px_64px_rgba(48,24,10,0.08)]">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/70 px-4 py-3 sm:px-5">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-accent/75" />
@@ -132,164 +82,143 @@ function DemoFrameShell({
           </span>
         </div>
       </div>
-      <div className="p-4 sm:p-5">{children}</div>
+      <div className="flex flex-1 flex-col p-3.5 sm:p-4">{children}</div>
+    </div>
+  );
+}
+
+function CompactMetric({
+  label,
+  value,
+  context,
+}: {
+  label: string;
+  value: string;
+  context?: string;
+}) {
+  return (
+    <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-3">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+        {label}
+      </p>
+      <p className="mt-2 text-[1.65rem] font-semibold leading-none text-text-strong">{value}</p>
+      {context ? (
+        <p className="mt-2 text-sm text-text-muted">{context}</p>
+      ) : null}
     </div>
   );
 }
 
 function KitchenInventoryPreview({ demo }: ProductPreviewProps) {
   const { heroPreview } = demo;
+  const primaryItems = heroPreview.sideListItems.slice(0, 4);
+  const draftOrder = heroPreview.lowerPanels[0]?.items ?? [];
 
   return (
     <DemoFrameShell
       eyebrow={heroPreview.appName}
-      title={heroPreview.heading}
+      title="Inventory"
       status={demo.destination.availabilityLabel}
       actions={
-        <span className="rounded-full border border-border/80 bg-[#FFF7EC] px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-accent">
-          Daily snapshot
-        </span>
+        <button
+          type="button"
+          className="rounded-full bg-accent px-3.5 py-1.5 text-xs font-semibold text-white"
+        >
+          + Create Order
+        </button>
       }
     >
-      <div className="grid gap-4 lg:grid-cols-[13.5rem_minmax(0,1fr)]">
-        <aside className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-5">
-          <div className="border-b border-border/70 pb-4">
-            <p className="text-sm font-semibold text-text-strong">{heroPreview.appName}</p>
-            <p className="mt-2 text-xs leading-6 text-text-muted">{heroPreview.summary}</p>
-          </div>
-
-          <div className="mt-4 space-y-2.5 text-sm text-text-muted">
-            {["Overview", "Inventory", "Purchases", "Prep", "Reports", "Settings"].map(
-              (item, index) => (
-                <div
-                  key={item}
-                  className={`rounded-[var(--radius-control)] px-3 py-2.5 ${
-                    index === 0
-                      ? "bg-surface-soft font-semibold text-text-strong"
-                      : "hover:bg-surface-soft/70"
-                  }`}
-                >
-                  {item}
-                </div>
-              ),
-            )}
-          </div>
-
-          <div className="mt-4 rounded-[var(--radius-card)] border border-border/80 bg-surface-soft px-3 py-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
-              Priority
-            </p>
-            <p className="mt-2 text-sm font-medium text-text-strong">
-              Reorder seafood before dinner service and confirm two pending deliveries.
-            </p>
-          </div>
-        </aside>
-
-        <div className="space-y-4">
-          <div className="preview-region [--preview-delay:20ms] flex items-start justify-between gap-4 rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
-                Daily Snapshot
-              </p>
-              <p className="mt-2 text-2xl font-semibold text-text-strong">
-                {heroPreview.heading}
-              </p>
+      <div className="flex h-full flex-col gap-4">
+        <div className="preview-region [--preview-delay:20ms] flex flex-wrap gap-3">
+          {heroPreview.metrics.slice(0, 2).map((metric) => (
+            <div
+              key={metric.label}
+              className="rounded-full border border-border/80 bg-[#FFF7EC] px-4 py-2 text-sm font-medium text-text-strong"
+            >
+              <span className="font-semibold">{metric.value}</span> {metric.label}
             </div>
-            <span className="rounded-full border border-border bg-surface-soft px-3 py-1 text-xs font-medium text-text-muted">
-              {demo.destination.availabilityLabel}
-            </span>
-          </div>
+          ))}
+        </div>
 
-          <div className="preview-region [--preview-delay:70ms] grid gap-3 lg:grid-cols-3">
-            {heroPreview.metrics.map((metric) => (
-              <DemoMetricCard key={metric.label} {...metric} />
-            ))}
-          </div>
-
-          <div className="preview-region [--preview-delay:120ms] grid gap-4 2xl:grid-cols-[minmax(0,1.24fr)_minmax(16rem,0.76fr)]">
-            <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-5">
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-sm font-semibold text-text-strong">
-                    {heroPreview.chartTitle}
-                  </p>
-                  <p className="mt-1 text-xs text-text-muted">This week</p>
-                </div>
-                <span className="rounded-full bg-surface-soft px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
-                  This week
-                </span>
-              </div>
-              <div className="mt-5">
-                <MiniLineChart
-                  ariaLabel="Ingredient usage this week"
-                  chartId="kitchen-usage"
-                  points={heroPreview.chartSeries}
-                />
-              </div>
-              <div className="mt-5 rounded-[var(--radius-card)] border border-border/65 bg-[#FFF9EF] px-4 py-4">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-sm font-semibold text-text-strong">Inventory Health</p>
-                  <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
-                    Current
-                  </span>
-                </div>
-                <div className="mt-4">
-                  <StatusMeter
-                    ariaLabel="Inventory health distribution"
-                    items={inventoryHealthItems}
-                  />
-                </div>
-              </div>
+        <div className="preview-region [--preview-delay:70ms] grid flex-1 gap-4 xl:grid-cols-[minmax(0,1.28fr)_minmax(15rem,0.72fr)]">
+          <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+            <div className="flex items-center justify-between gap-3 border-b border-border/65 pb-3">
+              <p className="text-sm font-semibold text-text-strong">Inventory</p>
+              <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
+                Live status
+              </span>
             </div>
-
-            <div className="space-y-4">
-              <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-5">
-                <p className="text-sm font-semibold text-text-strong">
-                  {heroPreview.sideListTitle}
-                </p>
-                <div className="mt-4 space-y-3">
-                  {heroPreview.sideListItems.map((item) => (
-                    <div
-                      key={item.label}
-                      className="rounded-[var(--radius-control)] bg-surface-soft px-3 py-3"
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <p className="text-sm font-semibold text-text-strong">{item.label}</p>
-                        <span className="text-xs font-medium uppercase tracking-[0.16em] text-text-muted">
-                          Priority
-                        </span>
-                      </div>
-                      <p className="mt-2 text-sm text-text-muted">{item.value}</p>
-                      {item.detail ? (
-                        <p className="mt-1 text-xs text-text-muted">{item.detail}</p>
-                      ) : null}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {heroPreview.lowerPanels.map((panel) => (
+            <div className="mt-3 space-y-2">
+              {primaryItems.map((item, index) => (
                 <div
-                  key={panel.title}
-                  className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4"
+                  key={item.label}
+                  className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-3 rounded-[var(--radius-control)] bg-surface-soft/70 px-3 py-2.5 text-sm"
                 >
-                  <p className="text-sm font-semibold text-text-strong">{panel.title}</p>
-                  <div className="mt-3 space-y-3">
-                    {panel.items.map((item) => (
-                      <div key={item.label} className="rounded-[var(--radius-control)] bg-[#FFF9EF] px-3 py-3">
-                        <div className="flex items-center justify-between gap-3 text-sm">
-                          <span className="text-text-muted">{item.label}</span>
-                          <span className="font-medium text-text-strong">{item.value}</span>
-                        </div>
-                        {item.detail ? (
-                          <p className="mt-1 text-xs text-text-muted">{item.detail}</p>
-                        ) : null}
-                      </div>
-                    ))}
+                  <div>
+                    <p className="font-medium text-text-strong">{item.label}</p>
+                    {item.detail ? (
+                      <p className="mt-1 text-xs text-text-muted">{item.detail}</p>
+                    ) : null}
                   </div>
+                  <span className="text-text-muted">{item.value}</span>
+                  <span
+                    className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${
+                      index < 2
+                        ? "bg-[#FFF1E4] text-accent"
+                        : "bg-[#F3F0E7] text-[#5E6F53]"
+                    }`}
+                  >
+                    {index < 2 ? "Low" : "Good"}
+                  </span>
                 </div>
               ))}
             </div>
+            <button
+              type="button"
+              className="mt-4 rounded-[var(--radius-card)] border border-border bg-background px-4 py-2.5 text-sm font-semibold text-text-strong transition hover:border-accent/40 hover:text-accent"
+            >
+              Reorder
+            </button>
+          </div>
+
+          <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+            <div className="border-b border-border/65 pb-3">
+              <p className="text-sm font-semibold text-text-strong">Draft Order</p>
+              <p className="mt-1 text-xs text-text-muted">Sysco</p>
+            </div>
+            <div className="mt-3 space-y-2.5">
+              {draftOrder.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-center justify-between gap-3 rounded-[var(--radius-control)] bg-[#FFF9EF] px-3 py-2.5 text-sm"
+                >
+                  <span className="text-text-muted">{item.label}</span>
+                  <span className="font-medium text-text-strong">{item.value}</span>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="mt-4 w-full rounded-[var(--radius-card)] bg-accent px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-accent/90"
+            >
+              Review Order
+            </button>
+          </div>
+        </div>
+
+        <div className="preview-region [--preview-delay:120ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-text-strong">{heroPreview.chartTitle}</p>
+              <p className="mt-1 text-xs text-text-muted">This week</p>
+            </div>
+          </div>
+          <div className="mt-4">
+            <MiniLineChart
+              ariaLabel="Stock consumption this week"
+              chartId="kitchen-consumption"
+              points={heroPreview.chartSeries}
+            />
           </div>
         </div>
       </div>
@@ -299,9 +228,7 @@ function KitchenInventoryPreview({ demo }: ProductPreviewProps) {
 
 function ClientSchedulingPreview({ demo }: ProductPreviewProps) {
   const { heroPreview } = demo;
-  const upcomingItems = heroPreview.sideListItems.slice(0, 3);
-  const bookingPagePanel = heroPreview.lowerPanels[0];
-  const bookingHealthPanel = heroPreview.lowerPanels[1];
+  const pageStatus = heroPreview.lowerPanels[0]?.items ?? [];
 
   return (
     <DemoFrameShell
@@ -309,54 +236,41 @@ function ClientSchedulingPreview({ demo }: ProductPreviewProps) {
       title="Client Scheduling"
       status={demo.destination.availabilityLabel}
       actions={
-        <span className="rounded-[999px] bg-accent px-3.5 py-1.5 text-xs font-semibold text-white">
+        <button
+          type="button"
+          className="rounded-full bg-accent px-3.5 py-1.5 text-xs font-semibold text-white"
+        >
           + New Booking
-        </span>
+        </button>
       }
     >
-      <div className="space-y-4">
-        <div className="preview-region [--preview-delay:20ms] rounded-[var(--radius-card)] border border-border/70 bg-[#FFF9EF] px-5 py-5">
-          <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                Client scheduling
-              </p>
-              <h3 className="mt-3 max-w-[16ch] text-[2.05rem] leading-[0.98] text-text-strong">
-                {heroPreview.summary}
-              </h3>
-            </div>
-            <div className="rounded-full border border-border/70 bg-background/85 px-3 py-1.5 text-xs font-medium text-text-muted">
-              August 2026
-            </div>
-          </div>
-
-          <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {heroPreview.metrics.map((metric) => (
-              <DemoMetricCard key={metric.label} {...metric} />
-            ))}
-          </div>
+      <div className="flex h-full flex-col gap-4">
+        <div className="preview-region [--preview-delay:20ms] grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {heroPreview.metrics.map((metric) => (
+            <CompactMetric
+              key={metric.label}
+              label={metric.label}
+              value={metric.value}
+              context={metric.context}
+            />
+          ))}
         </div>
 
-        <div className="grid gap-4 xl:grid-cols-[minmax(0,1.82fr)_minmax(17.5rem,0.84fr)]">
-          <div className="preview-region [--preview-delay:80ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="grid flex-1 gap-4 xl:grid-cols-[minmax(0,1.42fr)_minmax(15.5rem,0.58fr)]">
+          <div className="preview-region [--preview-delay:70ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+            <div className="flex items-center justify-between gap-3 pb-3">
               <div>
                 <p className="text-sm font-semibold text-text-strong">Weekly Planner</p>
-                <p className="mt-1 text-xs text-text-muted">
-                  A week view that keeps appointments, holds, and open time readable.
-                </p>
+                <p className="mt-1 text-xs text-text-muted">August 2026</p>
               </div>
-              <div className="flex gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
-                <span className="rounded-full bg-surface-soft px-3 py-1.5">Week</span>
-                <span className="rounded-full border border-border/80 px-3 py-1.5">
-                  August 2026
-                </span>
-              </div>
+              <span className="rounded-full bg-surface-soft px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
+                Week view
+              </span>
             </div>
 
-            <div className="mt-5 overflow-x-auto pb-1">
-              <div className="min-w-[42rem] overflow-hidden rounded-[var(--radius-card)] border border-border/70">
-                <div className="grid grid-cols-[5.5rem_repeat(5,minmax(0,1fr))] border-b border-border/60 bg-surface-soft/80 text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">
+            <div className="overflow-x-auto pb-1">
+              <div className="min-w-[36rem] overflow-hidden rounded-[var(--radius-card)] border border-border/65">
+                <div className="grid grid-cols-[5rem_repeat(5,minmax(0,1fr))] border-b border-border/60 bg-surface-soft/80 text-[11px] font-semibold uppercase tracking-[0.14em] text-text-muted">
                   <div className="px-3 py-3">Time</div>
                   {schedulingWeekDays.map((day) => (
                     <div key={day} className="border-l border-border/60 px-3 py-3 text-center">
@@ -368,45 +282,41 @@ function ClientSchedulingPreview({ demo }: ProductPreviewProps) {
                 {schedulingTimeRows.map((slot, rowIndex) => (
                   <div
                     key={slot}
-                    className="grid grid-cols-[5.5rem_repeat(5,minmax(0,1fr))] text-sm"
+                    className="grid grid-cols-[5rem_repeat(5,minmax(0,1fr))] text-sm"
                   >
-                    <div className="border-b border-border/60 px-3 py-4 font-medium text-text-muted">
+                    <div className="border-b border-border/60 px-3 py-3 text-text-muted">
                       {slot}
                     </div>
                     {schedulingWeekDays.map((day, dayIndex) => {
                       const event = schedulingEvents.find(
                         (item) => item.dayIndex === dayIndex && item.rowIndex === rowIndex,
                       );
-                      const hold = schedulingHoldSlots.find(
+                      const hold = schedulingHolds.find(
                         (item) => item.dayIndex === dayIndex && item.rowIndex === rowIndex,
                       );
 
                       return (
                         <div
                           key={`${day}-${slot}`}
-                          className="border-b border-l border-border/60 px-2 py-2"
+                          className="border-b border-l border-border/60 px-2 py-1.5"
                         >
                           {event ? (
-                            <div className="min-h-[6.2rem] rounded-[1rem] bg-[linear-gradient(135deg,#FCE3B0_0%,#F5B17D_100%)] px-3 py-3 text-[#6A2A12]">
+                            <div className="rounded-[1rem] bg-[linear-gradient(135deg,#FCE3B0_0%,#F5B17D_100%)] px-3 py-2.5 text-[#6A2A12]">
                               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] opacity-85">
                                 {event.time}
                               </p>
-                              <p className="mt-2 text-sm font-semibold leading-5">
-                                {event.title}
-                              </p>
-                              <p className="mt-1 text-xs leading-5 opacity-80">
-                                {event.client}
-                              </p>
+                              <p className="mt-1 text-sm font-semibold">{event.title}</p>
+                              <p className="mt-1 text-xs opacity-80">{event.client}</p>
                             </div>
                           ) : hold ? (
-                            <div className="min-h-[6.2rem] rounded-[1rem] border border-dashed border-border/80 bg-[#FFF8F1] px-3 py-3 text-text-muted">
+                            <div className="rounded-[1rem] border border-dashed border-border/80 bg-[#FFF8F1] px-3 py-2.5 text-text-muted">
                               <p className="text-[11px] font-semibold uppercase tracking-[0.14em]">
                                 Hold
                               </p>
-                              <p className="mt-2 text-sm font-medium">{hold.label}</p>
+                              <p className="mt-1 text-sm">{hold.label}</p>
                             </div>
                           ) : (
-                            <div className="min-h-[6.2rem] rounded-[1rem] bg-surface-soft/55" />
+                            <div className="h-[4.45rem] rounded-[1rem] bg-surface-soft/55" />
                           )}
                         </div>
                       );
@@ -417,99 +327,60 @@ function ClientSchedulingPreview({ demo }: ProductPreviewProps) {
             </div>
           </div>
 
-          <div className="space-y-4">
-            <div className="preview-region [--preview-delay:50ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
-              <p className="text-sm font-semibold text-text-strong">
-                {heroPreview.sideListTitle}
-              </p>
-              <div className="mt-4 space-y-3">
-                {upcomingItems.map((item, index) => (
-                  <div
-                    key={item.label}
-                    className={`rounded-[var(--radius-control)] px-3 py-3 ${
-                      index === 0
-                        ? "bg-[#FFF4E6]"
-                        : "border border-border/70 bg-surface-soft/70"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="text-sm font-semibold text-text-strong">{item.label}</p>
-                      <span className="text-xs font-medium uppercase tracking-[0.16em] text-text-muted">
-                        {index === 0 ? "Soon" : "Queued"}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm text-text-strong">{item.value}</p>
-                    {item.detail ? (
-                      <p className="mt-1 text-xs text-text-muted">{item.detail}</p>
-                    ) : null}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="preview-region [--preview-delay:110ms] rounded-[var(--radius-card)] border border-border/70 bg-surface-soft/70 px-4 py-4">
-              <p className="text-sm font-semibold text-text-strong">Open Holds</p>
-              <div className="mt-4 space-y-3">
-                {["Friday 3:30 PM", "Tuesday 1:00 PM"].map((slot, index) => (
-                  <div
-                    key={slot}
-                    className="flex items-center justify-between gap-3 rounded-[var(--radius-control)] bg-surface px-3 py-3"
-                  >
-                    <span className="text-sm text-text-muted">{slot}</span>
-                    <span className="text-sm font-medium text-text-strong">
-                      {index === 0 ? "Pending confirmation" : "Reschedule option"}
+          <div className="preview-region [--preview-delay:95ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+            <p className="text-sm font-semibold text-text-strong">{heroPreview.sideListTitle}</p>
+            <div className="mt-3 space-y-2.5">
+              {heroPreview.sideListItems.map((item, index) => (
+                <div
+                  key={item.label}
+                  className={`rounded-[var(--radius-control)] px-3 py-2.5 ${
+                    index === 0
+                      ? "bg-[#FFF4E6]"
+                      : "border border-border/70 bg-surface-soft/70"
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-sm font-semibold text-text-strong">{item.label}</p>
+                    <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
+                      {index === 0 ? "Soon" : "Queued"}
                     </span>
                   </div>
-                ))}
-              </div>
+                  <p className="mt-2 text-sm text-text-strong">{item.value}</p>
+                  {item.detail ? (
+                    <p className="mt-1 text-xs text-text-muted">{item.detail}</p>
+                  ) : null}
+                </div>
+              ))}
             </div>
 
-            <div className="preview-region [--preview-delay:170ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
-              <div className="flex items-center justify-between gap-3">
-                <p className="text-sm font-semibold text-text-strong">Bookings This Week</p>
-                <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
-                  Trend
-                </span>
-              </div>
-              <div className="mt-4">
-                <MiniBarChart
-                  ariaLabel="Bookings this week by day"
-                  points={heroPreview.chartSeries}
-                />
+            <div className="mt-4 rounded-[var(--radius-card)] border border-border/65 bg-[#FFF9EF] px-3 py-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                Booking Page
+              </p>
+              <div className="mt-2 space-y-2">
+                {pageStatus.map((item) => (
+                  <div key={item.label} className="flex items-center justify-between gap-3 text-sm">
+                    <span className="text-text-muted">{item.label}</span>
+                    <span className="font-medium text-text-strong">{item.value}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        <div className="preview-region [--preview-delay:140ms] grid gap-4 lg:grid-cols-2">
-          <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
-            <p className="text-sm font-semibold text-text-strong">{bookingPagePanel?.title}</p>
-            <div className="mt-4 space-y-3">
-              {bookingPagePanel?.items.map((item) => (
-                <div
-                  key={item.label}
-                  className="flex items-center justify-between gap-3 rounded-[var(--radius-control)] bg-[#FFF9EF] px-3 py-3 text-sm"
-                >
-                  <span className="text-text-muted">{item.label}</span>
-                  <span className="font-medium text-text-strong">{item.value}</span>
-                </div>
-              ))}
+        <div className="preview-region [--preview-delay:130ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-text-strong">Bookings This Week</p>
+              <p className="mt-1 text-xs text-text-muted">Confirmed demand by day</p>
             </div>
           </div>
-
-          <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
-            <p className="text-sm font-semibold text-text-strong">{bookingHealthPanel?.title}</p>
-            <div className="mt-4 space-y-3">
-              {bookingHealthPanel?.items.map((item) => (
-                <div
-                  key={item.label}
-                  className="flex items-center justify-between gap-3 rounded-[var(--radius-control)] bg-surface-soft px-3 py-3 text-sm"
-                >
-                  <span className="text-text-muted">{item.label}</span>
-                  <span className="font-medium text-text-strong">{item.value}</span>
-                </div>
-              ))}
-            </div>
+          <div className="mt-4">
+            <MiniBarChart
+              ariaLabel="Bookings this week by day"
+              points={heroPreview.chartSeries}
+            />
           </div>
         </div>
       </div>
@@ -519,15 +390,17 @@ function ClientSchedulingPreview({ demo }: ProductPreviewProps) {
 
 function OperationsDashboardPreview({ demo }: ProductPreviewProps) {
   const { heroPreview } = demo;
+  const workflowHealth = heroPreview.lowerPanels[0]?.items ?? [];
+  const automationQueue = heroPreview.lowerPanels[1]?.items ?? [];
 
   return (
     <DemoFrameShell
       eyebrow={heroPreview.appName}
-      title={heroPreview.heading}
+      title="Operations Dashboard"
       status={demo.destination.availabilityLabel}
       actions={
-        <>
-          {["Week", "Channel", "Team", "Export"].map((filter) => (
+        <div className="flex flex-wrap items-center gap-2">
+          {["Week", "Channel", "Team"].map((filter) => (
             <span
               key={filter}
               className="rounded-full border border-border/80 bg-surface-soft px-3 py-1.5 text-xs font-medium text-text-muted"
@@ -535,42 +408,33 @@ function OperationsDashboardPreview({ demo }: ProductPreviewProps) {
               {filter}
             </span>
           ))}
-        </>
+        </div>
       }
     >
-      <div className="space-y-4">
-        <div className="preview-region [--preview-delay:20ms] flex flex-col gap-3 rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
-              Reporting Layer
-            </p>
-            <p className="mt-2 text-2xl font-semibold text-text-strong">
-              {heroPreview.heading}
-            </p>
-            <p className="mt-2 text-sm leading-7 text-text-muted">{heroPreview.summary}</p>
-          </div>
-        </div>
-
-        <div className="preview-region [--preview-delay:70ms] grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+      <div className="flex h-full flex-col gap-4">
+        <div className="preview-region [--preview-delay:20ms] grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {heroPreview.metrics.map((metric) => (
-            <DemoMetricCard key={metric.label} {...metric} />
+            <CompactMetric
+              key={metric.label}
+              label={metric.label}
+              value={metric.value}
+              context={metric.context}
+            />
           ))}
         </div>
 
-        <div className="preview-region [--preview-delay:120ms] grid gap-4 xl:grid-cols-[minmax(0,1.16fr)_minmax(19rem,0.84fr)]">
-          <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-5">
+        <div className="grid flex-1 gap-4 xl:grid-cols-[minmax(0,1.24fr)_minmax(15.75rem,0.76fr)]">
+          <div className="preview-region [--preview-delay:70ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="text-sm font-semibold text-text-strong">
-                  {heroPreview.chartTitle}
-                </p>
+                <p className="text-sm font-semibold text-text-strong">{heroPreview.chartTitle}</p>
                 <p className="mt-1 text-xs text-text-muted">Daily revenue over the past week</p>
               </div>
               <span className="rounded-full bg-surface-soft px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-text-muted">
                 Last 7 Days
               </span>
             </div>
-            <div className="mt-5">
+            <div className="mt-4">
               <MiniLineChart
                 ariaLabel="Weekly revenue trend"
                 chartId="operations-revenue"
@@ -579,73 +443,53 @@ function OperationsDashboardPreview({ demo }: ProductPreviewProps) {
                 valueSuffix="k"
               />
             </div>
+
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              {workflowHealth.map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-[var(--radius-control)] bg-surface-soft/75 px-3 py-3 text-sm"
+                >
+                  <p className="text-text-muted">{item.label}</p>
+                  <p className="mt-1 font-semibold text-text-strong">{item.value}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="space-y-4">
-            <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
-              <p className="text-sm font-semibold text-text-strong">Workflow Status</p>
-              <div className="mt-4">
-                <StatusMeter
-                  ariaLabel="Workflow status distribution"
-                  items={workflowStatusItems}
-                />
-              </div>
-            </div>
-
-            <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
-              <p className="text-sm font-semibold text-text-strong">Revenue by Channel</p>
-              <div className="mt-4">
-                <StatusMeter
-                  ariaLabel="Revenue by channel distribution"
-                  items={revenueChannelItems}
-                />
-              </div>
-            </div>
-
-            <div className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
-              <p className="text-sm font-semibold text-text-strong">
-                {heroPreview.sideListTitle}
-              </p>
-              <div className="mt-4 space-y-3">
-                {heroPreview.sideListItems.map((item) => (
-                  <div
-                    key={item.label}
-                    className="rounded-[var(--radius-control)] bg-surface-soft px-3 py-3"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="text-sm font-medium text-text-strong">{item.label}</p>
-                      <p className="text-sm text-text-muted">{item.value}</p>
-                    </div>
-                    {item.detail ? (
-                      <p className="mt-1 text-xs leading-6 text-text-muted">{item.detail}</p>
-                    ) : null}
+          <div className="preview-region [--preview-delay:100ms] rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-4">
+            <p className="text-sm font-semibold text-text-strong">{heroPreview.sideListTitle}</p>
+            <div className="mt-3 space-y-2.5">
+              {heroPreview.sideListItems.map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-[var(--radius-control)] bg-[#FFF9EF] px-3 py-2.5"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-sm font-medium text-text-strong">{item.label}</p>
+                    <p className="text-sm text-text-muted">{item.value}</p>
                   </div>
-                ))}
-              </div>
+                  {item.detail ? (
+                    <p className="mt-1 text-xs text-text-muted">{item.detail}</p>
+                  ) : null}
+                </div>
+              ))}
             </div>
-          </div>
-        </div>
 
-        <div className="preview-region [--preview-delay:180ms] grid gap-4 lg:grid-cols-2">
-          {heroPreview.lowerPanels.map((panel) => (
-            <div
-              key={panel.title}
-              className="rounded-[var(--radius-card)] border border-border/70 bg-surface px-4 py-5"
-            >
-              <p className="text-sm font-semibold text-text-strong">{panel.title}</p>
-              <div className="mt-4 space-y-3">
-                {panel.items.map((item) => (
-                  <div
-                    key={item.label}
-                    className="flex items-center justify-between gap-3 border-b border-border/55 pb-3 text-sm last:border-b-0 last:pb-0"
-                  >
+            <div className="mt-4 rounded-[var(--radius-card)] border border-border/65 bg-surface-soft/75 px-3 py-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                Automation Queue
+              </p>
+              <div className="mt-2 space-y-2">
+                {automationQueue.map((item) => (
+                  <div key={item.label} className="flex items-center justify-between gap-3 text-sm">
                     <span className="text-text-muted">{item.label}</span>
                     <span className="font-medium text-text-strong">{item.value}</span>
                   </div>
                 ))}
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </DemoFrameShell>
@@ -654,7 +498,7 @@ function OperationsDashboardPreview({ demo }: ProductPreviewProps) {
 
 export function ProductPreview({ demo }: ProductPreviewProps) {
   return (
-    <div className="card-surface min-h-[46rem] overflow-hidden p-4 sm:p-5 lg:p-6">
+    <div className="card-surface overflow-hidden p-4 sm:p-5 lg:min-h-[32.5rem] lg:aspect-[1.42/1] lg:p-6 xl:min-h-[34rem] xl:aspect-[1.46/1]">
       {demo.id === "kitchen-inventory" ? <KitchenInventoryPreview demo={demo} /> : null}
       {demo.id === "bookings-website" ? <ClientSchedulingPreview demo={demo} /> : null}
       {demo.id === "operations-dashboard" ? (

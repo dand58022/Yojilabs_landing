@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
+import { BrandLockup } from "@/components/brand/BrandLockup";
 import { siteContent } from "@/content/site-content";
-import { siteConfig } from "@/lib/site-config";
 
 export function LandingFooter() {
   const { footer } = siteContent;
@@ -11,13 +10,7 @@ export function LandingFooter() {
       <div className="container-shell py-12">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)_minmax(0,0.7fr)_minmax(0,0.7fr)]">
           <div className="space-y-5">
-            <Image
-              src={siteConfig.brand.logo}
-              alt="YojiLabs"
-              width={188}
-              height={34}
-              className="h-auto w-[172px]"
-            />
+            <BrandLockup size="md" />
             <p className="max-w-sm text-sm leading-7 text-text-muted">
               {footer.brandSummary}
             </p>
