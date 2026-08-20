@@ -1,3 +1,4 @@
+import { GeneralContactForm } from "@/components/forms/GeneralContactForm";
 import { ProcessSteps } from "@/components/landing/ProcessSteps";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
 import { siteContent } from "@/content/site-content";
@@ -43,26 +44,10 @@ export function AboutContactSection() {
               </div>
             </div>
 
-            <div className="card-surface px-6 py-7 sm:px-7">
-              <p className="text-sm font-semibold text-text-strong">
-                {aboutContact.contact.formTitle}
-              </p>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-[var(--radius-control)] border border-border/80 bg-surface-soft px-4 py-3 text-sm text-text-muted">
-                  Name
-                </div>
-                <div className="rounded-[var(--radius-control)] border border-border/80 bg-surface-soft px-4 py-3 text-sm text-text-muted">
-                  Email
-                </div>
-                <div className="rounded-[var(--radius-control)] border border-border/80 bg-surface-soft px-4 py-3 text-sm text-text-muted sm:col-span-2">
-                  Subject
-                </div>
-                <div className="rounded-[var(--radius-control)] border border-dashed border-border/80 bg-surface-soft px-4 py-8 text-sm text-text-muted sm:col-span-2">
-                  General contact form interaction lands next. This section is the
-                  styled mount point for the mocked localhost form.
-                </div>
-              </div>
-            </div>
+            <GeneralContactForm
+              title={aboutContact.contact.formTitle}
+              responseNote={aboutContact.responseNote}
+            />
           </div>
         </div>
       </div>
