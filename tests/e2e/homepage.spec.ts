@@ -299,3 +299,50 @@ test("hero editorial typography and caption hierarchy follow the refined present
 
   expect(captionBox.y).toBeGreaterThan(previewBox.y + previewBox.height - 2);
 });
+
+test("what we build cards include structural numbering and aligned bottom-right arrows", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1600, height: 1000 });
+  await page.goto("/");
+
+  const servicesSection = page.locator("#services");
+  const cards = servicesSection.getByTestId("service-card");
+  const arrows = servicesSection.getByTestId("service-card-arrow");
+
+  await expect(cards).toHaveCount(4);
+  await expect(arrows).toHaveCount(4);
+  await expect(servicesSection.getByText("01", { exact: true })).toBeVisible();
+  await expect(servicesSection.getByText("02", { exact: true })).toBeVisible();
+  await expect(servicesSection.getByText("03", { exact: true })).toBeVisible();
+  await expect(servicesSection.getByText("04", { exact: true })).toBeVisible();
+
+  const positions = await cards.evaluateAll((nodes) =>
+    nodes.map((node) => {
+      const card = node as HTMLElement;
+      const arrow = card.querySelector('[data-testid="service-card-arrow"]') as HTMLElement | null;
+      const cardRect = card.getBoundingClientRect();
+      const arrowRect = arrow?.getBoundingClientRect();
+
+      if (!arrowRect) {
+        return null;
+      }
+
+      return {
+        bottomInset: Math.round(cardRect.bottom - arrowRect.bottom),
+        rightInset: Math.round(cardRect.right - arrowRect.right),
+      };
+    }),
+  );
+
+  expect(positions).toHaveLength(4);
+
+  const validPositions = positions.filter((position) => position !== null);
+  expect(validPositions).toHaveLength(4);
+
+  const bottoms = validPositions.map((position) => position.bottomInset);
+  const rights = validPositions.map((position) => position.rightInset);
+
+  expect(Math.max(...bottoms) - Math.min(...bottoms)).toBeLessThanOrEqual(4);
+  expect(Math.max(...rights) - Math.min(...rights)).toBeLessThanOrEqual(4);
+});
