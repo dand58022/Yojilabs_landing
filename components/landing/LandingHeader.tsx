@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { BrandLockup } from "@/components/brand/BrandLockup";
 import { siteContent } from "@/content/site-content";
-import { siteConfig } from "@/lib/site-config";
 import { MobileNav } from "@/components/landing/MobileNav";
 
 export function LandingHeader() {
@@ -38,14 +37,7 @@ export function LandingHeader() {
           href="/"
           className="inline-flex items-center rounded-[var(--radius-control)] px-1.5 py-1 transition hover:opacity-90 focus-visible:outline-offset-4"
         >
-          <Image
-            src={siteConfig.brand.logo}
-            alt="YojiLabs"
-            width={198}
-            height={36}
-            priority
-            className="h-auto w-[170px] sm:w-[222px]"
-          />
+          <BrandLockup size="lg" priority />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
