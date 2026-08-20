@@ -1,0 +1,204 @@
+.root {
+  --loader-duration: 820ms;
+  --loader-delay-wordmark: 300ms;
+  --loader-wordmark-duration: 680ms;
+  --loader-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --loader-mark-width: 3.5rem;
+  --loader-wordmark-size: 0.84rem;
+  --loader-gap: 0.95rem;
+  --loader-scale: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-strong);
+}
+
+.sm {
+  --loader-mark-width: 2.5rem;
+  --loader-wordmark-size: 0.66rem;
+  --loader-gap: 0.72rem;
+}
+
+.md {
+  --loader-mark-width: 3.5rem;
+  --loader-wordmark-size: 0.84rem;
+  --loader-gap: 0.95rem;
+}
+
+.lg {
+  --loader-mark-width: 4.5rem;
+  --loader-wordmark-size: 1rem;
+  --loader-gap: 1.1rem;
+}
+
+.frame {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--loader-gap);
+  transform: scale(var(--loader-scale));
+  transform-origin: center;
+}
+
+.markWrap {
+  position: relative;
+  width: var(--loader-mark-width);
+  flex: 0 0 auto;
+}
+
+.mark {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.orange {
+  opacity: 0;
+  transform-origin: 36% 48%;
+  animation: orange-enter var(--loader-duration) var(--loader-ease) forwards;
+}
+
+.gold {
+  opacity: 0;
+  transform-origin: 72% 58%;
+  animation: gold-enter var(--loader-duration) var(--loader-ease) forwards;
+}
+
+.wordmark {
+  opacity: 0;
+  transform: translateY(5px);
+  color: var(--text-strong);
+  font-family: var(--font-body-family);
+  font-size: var(--loader-wordmark-size);
+  font-weight: 700;
+  letter-spacing: 0.46em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation:
+    wordmark-enter var(--loader-wordmark-duration) var(--loader-ease)
+      var(--loader-delay-wordmark) forwards;
+}
+
+.markOnly {
+  gap: 0;
+}
+
+.loop .orange,
+.loop .gold {
+  animation-iteration-count: infinite;
+}
+
+.loop .wordmark {
+  animation-iteration-count: infinite;
+  animation-duration: calc(var(--loader-duration) + 160ms);
+}
+
+.loop .orange {
+  animation-name: orange-loop;
+}
+
+.loop .gold {
+  animation-name: gold-loop;
+}
+
+.loop .wordmark {
+  animation-name: wordmark-loop;
+}
+
+@keyframes orange-enter {
+  0% {
+    opacity: 0;
+    transform: translate3d(-4px, 6px, 0) scale(0.94);
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes gold-enter {
+  0%,
+  26% {
+    opacity: 0;
+    transform: translate3d(-10px, 0, 0) scale(0.92);
+  }
+
+  55% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes wordmark-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes orange-loop {
+  0%,
+  100% {
+    opacity: 0.94;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translate3d(-3px, 3px, 0) scale(0.97);
+  }
+}
+
+@keyframes gold-loop {
+  0%,
+  18%,
+  100% {
+    opacity: 0.92;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  55% {
+    opacity: 1;
+    transform: translate3d(-6px, 0, 0) scale(0.95);
+  }
+}
+
+@keyframes wordmark-loop {
+  0%,
+  100% {
+    opacity: 0.94;
+    transform: translateY(0);
+  }
+
+  45% {
+    opacity: 1;
+    transform: translateY(1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orange,
+  .gold,
+  .wordmark,
+  .loop .orange,
+  .loop .gold,
+  .loop .wordmark {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
