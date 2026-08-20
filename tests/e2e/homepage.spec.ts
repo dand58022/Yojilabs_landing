@@ -231,3 +231,37 @@ test("shared site lockups use the canonical YojiLabs symbol asset", async ({ pag
 
   await expect.poll(countCanonicalSymbols).toBe(2);
 });
+
+test("homepage uses free scrolling and activates the section rail from a stable viewport line", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1600, height: 1000 });
+  await page.goto("/");
+
+  const htmlScrollSnapType = await page.evaluate(
+    () => getComputedStyle(document.documentElement).scrollSnapType,
+  );
+  const sectionScrollSnapAlign = await page.evaluate(() => {
+    const services = document.getElementById("services");
+    return services ? getComputedStyle(services).scrollSnapAlign : null;
+  });
+
+  expect(htmlScrollSnapType).toBe("none");
+  expect(sectionScrollSnapAlign).toBe("none");
+
+  const sectionRail = page.getByRole("navigation", { name: "Homepage sections" });
+  const currentRailLabel = () =>
+    sectionRail
+      .locator('[aria-current="location"]')
+      .evaluate((node) => node.textContent?.replace(/\s+/g, "").trim() ?? "");
+
+  await expect.poll(currentRailLabel).toContain("01Home");
+  await page.locator("#services").scrollIntoViewIfNeeded();
+  await expect.poll(currentRailLabel).toContain("02Systems");
+
+  await page.locator("#demos").scrollIntoViewIfNeeded();
+  await expect.poll(currentRailLabel).toContain("03Demos");
+
+  await page.locator("#about").scrollIntoViewIfNeeded();
+  await expect.poll(currentRailLabel).toContain("04About");
+});

@@ -1,3 +1,5 @@
+import { SystemBackdrop } from "@/components/brand/SystemBackdrop";
+import { SystemLineAccent } from "@/components/brand/SystemLineAccent";
 import { ServiceCard } from "@/components/landing/ServiceCard";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
 import { ViewportReveal } from "@/components/landing/ViewportReveal";
@@ -11,10 +13,10 @@ export function ServicesSection() {
       id="services"
       className="page-section section-band section-band--warm scroll-mt-28 border-y border-border/55"
     >
-      <div className="container-shell relative py-14 lg:py-[4.8rem]">
-        <div className="pointer-events-none absolute -left-20 bottom-[-5rem] hidden h-56 w-56 rounded-[60%_40%_52%_48%/44%_54%_46%_56%] bg-[rgba(247,223,188,0.4)] lg:block" />
-        <div className="pointer-events-none absolute right-[-3rem] top-[-2rem] hidden h-40 w-40 rounded-[52%_48%_58%_42%/42%_56%_44%_58%] bg-[rgba(255,247,233,0.78)] lg:block" />
-        <div className="soft-dot-grid absolute -right-4 top-10 hidden h-28 w-36 opacity-45 lg:block" />
+      <div className="container-shell relative py-16 lg:py-[5.2rem]">
+        <SystemBackdrop className="motif-tech absolute -left-[4.5rem] top-12 hidden w-[14rem] lg:block" />
+        <div className="motif-field motif-field--soft motif-field--blur-md absolute -right-16 bottom-[-4rem] hidden h-56 w-72 lg:block" />
+        <div className="soft-dot-grid absolute right-10 top-12 hidden h-28 w-24 opacity-[0.17] lg:block" />
         <ViewportReveal className="space-y-10" variant="rise">
           <div className="space-y-4 text-center">
             <SectionEyebrow>{services.eyebrow}</SectionEyebrow>
@@ -24,7 +26,7 @@ export function ServicesSection() {
             <p className="prose-measure mx-auto text-base leading-7 text-text-muted sm:text-[1.05rem]">
               {services.intro}
             </p>
-            <div className="mx-auto h-px w-14 bg-accent/70" />
+            <SystemLineAccent className="mx-auto mt-1 hidden w-[5.4rem] text-accent/55 sm:block" />
           </div>
 
           <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">

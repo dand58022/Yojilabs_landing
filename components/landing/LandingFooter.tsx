@@ -6,8 +6,8 @@ export function LandingFooter() {
   const { footer } = siteContent;
 
   return (
-    <footer className="border-t border-border/70 bg-surface/78">
-      <div className="container-shell py-12">
+    <footer className="border-t border-border/65 bg-[rgba(255,251,245,0.92)]">
+      <div className="container-shell py-12 lg:py-14">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)_minmax(0,0.7fr)_minmax(0,0.7fr)]">
           <div className="space-y-5">
             <BrandLockup size="md" />

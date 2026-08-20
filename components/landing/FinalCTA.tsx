@@ -10,17 +10,20 @@ export function FinalCTA() {
     <section className="section-band section-band--neutral border-t border-border/60">
       <div className="container-shell py-10 lg:py-12">
         <ViewportReveal variant="fade">
-          <div className="card-surface relative overflow-hidden bg-[linear-gradient(180deg,rgba(255,252,246,0.99),rgba(247,239,226,0.96))] px-6 py-7 sm:px-8">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_72%,rgba(247,228,198,0.34),transparent_24%),radial-gradient(circle_at_82%_26%,rgba(241,177,117,0.14),transparent_20%)]" />
-            <div className="soft-dot-grid absolute bottom-6 right-6 hidden h-16 w-16 opacity-20 lg:block" />
-            <div className="soft-dot-grid absolute left-[10.5rem] top-6 hidden h-10 w-10 opacity-16 lg:block" />
+          <div className="card-surface relative overflow-hidden bg-[linear-gradient(180deg,rgba(255,252,246,0.99),rgba(246,235,216,0.96))] px-6 py-7 sm:px-8">
+            <div className="motif-field motif-field--soft motif-field--blur-lg absolute -left-16 bottom-[-4rem] h-52 w-64 opacity-[0.92]" />
+            <div className="motif-field motif-field--warm absolute left-[3rem] bottom-[-3.5rem] h-40 w-32 opacity-[0.6]" />
+            <div className="motif-field motif-field--soft motif-field--blur-md absolute right-[-8rem] top-[-4rem] h-56 w-80 opacity-[0.82]" />
+            <div className="motif-field motif-field--cta absolute right-[-2rem] top-[2.5rem] h-44 w-44 opacity-[0.52]" />
+            <div className="soft-dot-grid absolute bottom-8 right-8 hidden h-20 w-16 opacity-[0.16] lg:block" />
+            <div className="soft-dot-grid absolute left-[10rem] top-7 hidden h-10 w-10 opacity-[0.14] lg:block" />
 
-            <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)_auto] lg:items-center">
-              <div className="relative flex min-h-[8.25rem] items-center overflow-hidden rounded-[1.6rem] border border-border/60 bg-[linear-gradient(180deg,rgba(255,252,246,0.8),rgba(251,244,233,0.78))] px-5 py-4 shadow-[0_14px_30px_rgba(39,29,22,0.04)]">
-                <div className="absolute -left-10 bottom-[-2rem] h-32 w-24 rounded-[62%_38%_44%_56%/42%_56%_44%_58%] bg-[linear-gradient(180deg,rgba(240,145,63,0.92),rgba(211,95,57,0.9))]" />
-                <div className="absolute left-11 top-[-0.8rem] h-24 w-16 rounded-[52%_48%_58%_42%/28%_34%_66%_72%] bg-[rgba(255,239,214,0.92)]" />
-                <div className="absolute right-3 top-5 h-14 w-14 rounded-[60%_40%_54%_46%/48%_52%_48%_52%] bg-[rgba(249,231,202,0.5)]" />
-                <div className="soft-dot-grid absolute bottom-3 left-14 h-10 w-10 opacity-18" />
+            <div className="relative z-10 flex flex-col gap-8 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)_auto] lg:items-center">
+              <div className="relative flex min-h-[8.5rem] items-center overflow-hidden rounded-[1.75rem] border border-border/50 bg-[linear-gradient(180deg,rgba(255,250,242,0.72),rgba(252,244,232,0.48))] px-5 py-4 shadow-[0_14px_30px_rgba(39,29,22,0.04)]">
+                <div className="motif-field motif-field--cta absolute -left-8 bottom-[-2rem] h-34 w-24 opacity-[0.92]" />
+                <div className="motif-field motif-field--soft absolute left-12 top-[-0.5rem] h-24 w-16 opacity-[0.86]" />
+                <div className="motif-field motif-field--soft motif-field--blur-sm absolute right-2 top-6 h-14 w-14 opacity-[0.45]" />
+                <div className="soft-dot-grid absolute bottom-3 left-14 h-10 w-10 opacity-[0.12]" />
                 <div className="relative z-10 drop-shadow-[0_6px_16px_rgba(211,95,57,0.08)]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img

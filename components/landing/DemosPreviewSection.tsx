@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SystemLineAccent } from "@/components/brand/SystemLineAccent";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
 import { ViewportReveal } from "@/components/landing/ViewportReveal";
 import { demoContent } from "@/content/demo-content";
@@ -166,9 +167,9 @@ export function DemosPreviewSection() {
       id="demos"
       className="page-section section-band section-band--neutral scroll-mt-28 border-t border-border/60"
     >
-      <div className="container-shell relative py-12 lg:py-[4rem]">
-        <div className="pointer-events-none absolute right-[-3rem] top-6 hidden h-44 w-36 rounded-[56%_44%_48%_52%/44%_56%_40%_60%] bg-[linear-gradient(180deg,rgba(251,240,224,0.44),rgba(245,227,197,0.16))] blur-[4px] lg:block" />
-        <div className="soft-dot-grid absolute right-8 top-12 hidden h-16 w-14 opacity-[0.12] lg:block" />
+      <div className="container-shell relative py-14 lg:py-[4.4rem]">
+        <div className="motif-field motif-field--soft absolute right-[-3.5rem] top-10 hidden h-40 w-32 lg:block" />
+        <div className="motif-field motif-field--warm motif-field--blur-sm absolute -left-14 bottom-6 hidden h-24 w-36 opacity-[0.42] lg:block" />
         <ViewportReveal
           className="grid gap-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start"
           variant="soft"
@@ -179,9 +180,12 @@ export function DemosPreviewSection() {
             <p className="max-w-[30rem] text-base leading-7 text-text-muted sm:text-[1.05rem]">
               {demosPreview.intro}
             </p>
-            <p className="text-sm font-medium text-text-muted">
-              {demosRoute.preparationNote}
-            </p>
+            <div className="flex items-center gap-3">
+              <SystemLineAccent className="hidden w-[4.8rem] text-accent/45 sm:block" />
+              <p className="text-sm font-medium text-text-muted">
+                {demosRoute.preparationNote}
+              </p>
+            </div>
 
             <div>
               <Link

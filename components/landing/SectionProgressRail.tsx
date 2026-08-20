@@ -24,33 +24,51 @@ export function SectionProgressRail() {
   );
 
   useEffect(() => {
-    const elements = sections
-      .map((section) => document.getElementById(section.id))
-      .filter((element): element is HTMLElement => element !== null);
+    const resolveActiveSection = () => {
+      const activationLine = window.innerHeight * 0.38;
+      let nextActiveId = sections[0].id;
 
-    if (elements.length === 0) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntries = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visibleEntries[0]?.target.id) {
-          setActiveId(visibleEntries[0].target.id);
+      for (const section of sections) {
+        const element = document.getElementById(section.id);
+        if (!element) {
+          continue;
         }
-      },
-      {
-        rootMargin: "-24% 0px -48% 0px",
-        threshold: [0.18, 0.32, 0.5, 0.68],
-      },
-    );
 
-    elements.forEach((element) => observer.observe(element));
+        if (element.getBoundingClientRect().top <= activationLine) {
+          nextActiveId = section.id;
+        } else {
+          break;
+        }
+      }
 
-    return () => observer.disconnect();
+      setActiveId((currentActiveId) =>
+        currentActiveId === nextActiveId ? currentActiveId : nextActiveId,
+      );
+    };
+
+    let frame = 0;
+    const scheduleResolve = () => {
+      if (frame) {
+        return;
+      }
+
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        resolveActiveSection();
+      });
+    };
+
+    resolveActiveSection();
+    window.addEventListener("scroll", scheduleResolve, { passive: true });
+    window.addEventListener("resize", scheduleResolve);
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+      window.removeEventListener("scroll", scheduleResolve);
+      window.removeEventListener("resize", scheduleResolve);
+    };
   }, []);
 
   const progressHeight =

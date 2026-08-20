@@ -23,7 +23,7 @@ export function HeroSection() {
     >
       <div
         data-testid="hero-background-composition"
-        className="pointer-events-none absolute inset-y-0 z-0"
+        className="pointer-events-none absolute inset-y-0 z-0 overflow-hidden"
         style={{ left: "calc(50% - 50vw)", right: "calc(50% - 50vw)" }}
       >
         <SystemBackdrop className="absolute -left-[4.5rem] top-0 hidden w-[14rem] text-accent/[0.08] lg:block" />
