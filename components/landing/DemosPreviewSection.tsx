@@ -136,11 +136,11 @@ function WorkPreviewGraphic({ demo }: { demo: DemoExperience }) {
             ))}
           </div>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           {["Revenue", "Workflow", "Service"].map((label, index) => (
             <div
               key={label}
-              className={`rounded-[0.9rem] border border-border/55 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] ${
+              className={`rounded-[0.9rem] border border-border/55 px-2.5 py-1.5 text-[9.5px] font-semibold uppercase tracking-[0.095em] ${
                 index === 0
                   ? "bg-[#FFF1E4] text-accent"
                   : "bg-[rgba(255,252,246,0.92)] text-text-muted"
@@ -176,7 +176,7 @@ export function DemosPreviewSection() {
         >
           <div className="space-y-4">
             <SectionEyebrow>{demosPreview.eyebrow}</SectionEyebrow>
-            <h2 className="editorial-headline max-w-[12ch] text-[3rem] sm:text-[3.7rem]">{demosPreview.title}</h2>
+            <h2 className="editorial-headline max-w-[13ch] text-[3rem] sm:text-[3.7rem]">{demosPreview.title}</h2>
             <p className="max-w-[30rem] text-base leading-7 text-text-muted sm:text-[1.05rem]">
               {demosPreview.intro}
             </p>

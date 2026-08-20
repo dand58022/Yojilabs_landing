@@ -60,7 +60,7 @@ export function HeroSection() {
       <div className="relative z-10 space-y-8 pt-4 lg:sticky lg:top-24 lg:max-w-[35rem] lg:pt-12">
         <div className="hero-reveal [--hero-delay:40ms] space-y-4">
           <SectionEyebrow>{hero.eyebrow}</SectionEyebrow>
-          <h1 className="editorial-headline max-w-[8.2ch] text-[3.75rem] sm:text-[4.6rem] lg:text-[5.55rem]">
+          <h1 className="editorial-headline max-w-[8.9ch] text-[3.75rem] sm:text-[4.6rem] lg:text-[5.55rem]">
             {hero.title}
           </h1>
           <p className="prose-measure max-w-[29rem] text-lg leading-8 text-text-muted sm:text-[1.16rem]">

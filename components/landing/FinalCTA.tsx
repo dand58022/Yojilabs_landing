@@ -38,7 +38,7 @@ export function FinalCTA() {
               <div className="relative flex items-start gap-6">
                 <div className="hidden h-20 w-px bg-border/70 lg:block" />
                 <div className="space-y-2.5">
-                  <h2 className="editorial-headline max-w-[12ch] text-[2.8rem] sm:text-[3.65rem]">{finalCta.title}</h2>
+                  <h2 className="editorial-headline max-w-[13ch] text-[2.8rem] sm:text-[3.65rem]">{finalCta.title}</h2>
                   <p className="max-w-2xl text-base leading-7 text-text-muted">
                     {finalCta.description}
                   </p>

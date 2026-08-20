@@ -27,7 +27,7 @@ export function AboutContactSection() {
         >
           <div className="space-y-5 lg:pl-20">
             <SectionEyebrow>{aboutContact.eyebrow}</SectionEyebrow>
-            <h2 className="editorial-headline max-w-[12ch] text-[3rem] sm:text-[3.65rem]">{aboutContact.title}</h2>
+            <h2 className="editorial-headline max-w-[13ch] text-[3rem] sm:text-[3.65rem]">{aboutContact.title}</h2>
             <p className="prose-measure text-base leading-7 text-text-muted sm:text-[1.05rem]">
               {aboutContact.description}
             </p>

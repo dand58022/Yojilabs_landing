@@ -15,7 +15,7 @@ export function HeroDemoTabs({ demos, defaultDemoId }: HeroDemoTabsProps) {
     demos.find((demo) => demo.id === activeDemoId) ?? demos[0];
 
   return (
-    <div className="space-y-4 lg:space-y-5">
+    <div className="space-y-3 lg:space-y-4">
       <div className="rounded-[calc(var(--radius-panel)+0.15rem)] border border-border/70 bg-[rgba(252,247,238,0.78)] p-3 shadow-[0_30px_70px_rgba(60,35,12,0.1)] backdrop-blur-sm">
         <div className="flex flex-wrap gap-2.5">
           {demos.map((demo) => {
@@ -51,13 +51,16 @@ export function HeroDemoTabs({ demos, defaultDemoId }: HeroDemoTabsProps) {
         </div>
       </div>
 
-      <p className="max-w-xl rounded-[1rem] border border-border/55 bg-[rgba(255,250,244,0.68)] px-4 py-3 text-sm leading-7 text-text-muted shadow-[0_10px_24px_rgba(39,29,22,0.04)]">
-        {activeDemo.heroCaption}
-      </p>
-
       <div key={activeDemo.id} className="preview-enter">
         <ProductPreview demo={activeDemo} />
       </div>
+
+      <p
+        data-testid="hero-demo-caption"
+        className="max-w-[38rem] px-1 text-[0.94rem] leading-6 text-text-muted/90"
+      >
+        {activeDemo.heroCaption}
+      </p>
     </div>
   );
 }

@@ -265,3 +265,37 @@ test("homepage uses free scrolling and activates the section rail from a stable 
   await page.locator("#about").scrollIntoViewIfNeeded();
   await expect.poll(currentRailLabel).toContain("04About");
 });
+
+test("hero editorial typography and caption hierarchy follow the refined presentation", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const heroHeading = page.getByRole("heading", { name: "Software built around your business." });
+  const heroPreview = page.getByTestId("product-preview-surface");
+  const heroCaption = page.getByText(
+    "Track stock, usage, and prep gaps in one place so your kitchen can move faster with fewer surprises.",
+  );
+
+  await expect(heroHeading).toBeVisible();
+  await expect(heroPreview).toBeVisible();
+  await expect(heroCaption).toBeVisible();
+
+  const headingFontFamily = await heroHeading.evaluate(
+    (node) => getComputedStyle(node).fontFamily,
+  );
+  expect(headingFontFamily.toLowerCase()).toContain("source");
+  expect(headingFontFamily.toLowerCase()).toContain("serif");
+
+  const previewBox = await heroPreview.boundingBox();
+  const captionBox = await heroCaption.boundingBox();
+
+  expect(previewBox).not.toBeNull();
+  expect(captionBox).not.toBeNull();
+
+  if (!previewBox || !captionBox) {
+    return;
+  }
+
+  expect(captionBox.y).toBeGreaterThan(previewBox.y + previewBox.height - 2);
+});

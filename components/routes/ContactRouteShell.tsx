@@ -24,7 +24,7 @@ export function ContactRouteShell() {
             <div aria-label="Contact summary" className="space-y-5 lg:border-r lg:border-border/65 lg:pr-8">
               <div className="space-y-4">
                 <SectionEyebrow>Contact</SectionEyebrow>
-                <h1 className="editorial-headline max-w-[10ch] text-[3rem] sm:text-[3.45rem]">
+                <h1 className="editorial-headline max-w-[11ch] text-[3rem] sm:text-[3.45rem]">
                   Start the conversation.
                 </h1>
                 <p className="prose-measure text-base leading-7 text-text-muted sm:text-[1.05rem]">

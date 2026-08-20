@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
-import { Newsreader } from "next/font/google";
+import { Source_Serif_4 } from "next/font/google";
 import localFont from "next/font/local";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
@@ -39,7 +39,7 @@ const inter = localFont({
   display: "swap",
 });
 
-const newsreader = Newsreader({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   variable: "--font-editorial",
   weight: ["400", "500", "600"],
@@ -96,7 +96,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${satoshi.variable} ${inter.variable} ${newsreader.variable} h-full antialiased`}
+      className={`${satoshi.variable} ${inter.variable} ${sourceSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

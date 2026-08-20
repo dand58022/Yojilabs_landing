@@ -191,8 +191,8 @@ main {
 .editorial-headline {
   font-family: var(--font-editorial-family);
   font-weight: 500;
-  letter-spacing: -0.055em;
-  line-height: 0.88;
+  letter-spacing: -0.026em;
+  line-height: 0.965;
 }
 
 .body-text {
