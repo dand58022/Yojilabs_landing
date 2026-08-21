@@ -46,7 +46,7 @@ export const siteContent = {
       eyebrow: "Custom software. Real impact.",
       title: "Software built around your business.",
       body:
-        "We build custom tools and systems that match your workflow, automate the busywork, and help you scale with confidence.",
+        "YojiLabs is a custom software and automation studio. We build tools and systems that match your workflow, automate the busywork, and help you scale with confidence.",
       primaryCta: {
         label: "Explore Our Work",
         href: routeMap.demosAnchor,
@@ -102,6 +102,7 @@ export const siteContent = {
       title: "A few ways YojiLabs software shows up in real operations.",
       intro:
         "A concise look at the kinds of systems, workflows, and operator tools we build.",
+      tierNote: "One working product, two scoped concepts.",
       demoOrder: [
         "kitchen-inventory",
         "bookings-website",
@@ -179,10 +180,9 @@ export const siteContent = {
     },
   },
   demosRoute: {
-    title: "Explore the product directions we're building around.",
+    title: "See the systems we build, at the fidelity they exist.",
     description:
-      "These previews show how YojiLabs software can support inventory, client conversion, and broader operational visibility.",
-    preparationNote: "Fuller interactive demos are being prepared.",
+      "One is a working product you can click through. Two are concepts we've scoped and are ready to build with a first client.",
     demoOrder: [
       "kitchen-inventory",
       "bookings-website",

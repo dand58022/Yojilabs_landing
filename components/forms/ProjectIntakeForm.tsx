@@ -1,12 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { submitMockProjectIntake } from "@/lib/mocks/mock-submissions";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useState } from "react";
+import { HoneypotField } from "@/components/forms/HoneypotField";
+import { TurnstileWidget } from "@/components/forms/TurnstileWidget";
+import { demoContent } from "@/content/demo-content";
 import { siteContent } from "@/content/site-content";
+import { validateProjectIntake, type FieldErrors } from "@/lib/forms/schema";
+import { submitProjectIntake } from "@/lib/forms/submit";
 import type { ProjectIntakeFormInput } from "@/types/site";
 
-type IntakeErrors = Partial<Record<keyof ProjectIntakeFormInput, string>>;
+const interestOptions = [
+  { value: "", label: "Not sure yet" },
+  ...demoContent.map((demo) => ({ value: demo.id, label: demo.title })),
+  { value: "website", label: "Website" },
+  { value: "call", label: "Just want to talk it through" },
+  { value: "automation", label: "Automation / integrations" },
+  { value: "other", label: "Something else" },
+];
+
+
+
+type IntakeErrors = FieldErrors<ProjectIntakeFormInput>;
 
 const initialValues: ProjectIntakeFormInput = {
   name: "",
@@ -15,26 +31,16 @@ const initialValues: ProjectIntakeFormInput = {
   projectNeeds: "",
 };
 
-function validate(values: ProjectIntakeFormInput) {
-  const errors: IntakeErrors = {};
-
-  if (!values.name.trim()) {
-    errors.name = "Please share your name.";
-  }
-  if (!values.email.trim()) {
-    errors.email = "Please share your email.";
-  }
-  if (!values.business.trim()) {
-    errors.business = "Please share your business.";
-  }
-  if (!values.projectNeeds.trim()) {
-    errors.projectNeeds = "Please describe what you need built.";
-  }
-
-  return errors;
-}
-
 export function ProjectIntakeForm() {
+  // Pre-selected interest, e.g. from a concept demo card's ?interest= link.
+  const initialInterest = useSearchParams().get("interest");
+  const [interest, setInterest] = useState(
+    interestOptions.some((option) => option.value === initialInterest) ? (initialInterest ?? "") : "",
+  );
+  const [honeypot, setHoneypot] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [startedAt] = useState(() => Date.now());
+  const handleToken = useCallback((token: string | null) => setTurnstileToken(token), []);
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState<IntakeErrors>({});
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">(
@@ -45,7 +51,7 @@ export function ProjectIntakeForm() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const nextErrors = validate(values);
+    const nextErrors = validateProjectIntake(values);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
@@ -54,9 +60,17 @@ export function ProjectIntakeForm() {
     }
 
     setSubmitState("submitting");
-    const result = await submitMockProjectIntake(values);
+    const result = await submitProjectIntake(
+      values,
+      { company_website: honeypot, startedAt, turnstileToken },
+      interest || null,
+    );
     setFeedback(result.message);
     setSubmitState(result.state);
+
+    if (result.state === "error" && result.fieldErrors) {
+      setErrors(result.fieldErrors as IntakeErrors);
+    }
 
     if (result.state === "success") {
       setValues(initialValues);
@@ -111,7 +125,8 @@ export function ProjectIntakeForm() {
   }
 
   return (
-    <form className="card-surface space-y-4 px-6 py-7 sm:px-7" onSubmit={handleSubmit} noValidate>
+    <form className="card-surface relative space-y-4 px-6 py-7 sm:px-7" onSubmit={handleSubmit} noValidate>
+      <HoneypotField value={honeypot} onChange={setHoneypot} />
       <label className="space-y-2 text-sm font-medium text-text-strong">
         <span>Name</span>
         <input
@@ -144,6 +159,21 @@ export function ProjectIntakeForm() {
       </label>
 
       <label className="space-y-2 text-sm font-medium text-text-strong">
+        <span>What kind of project is this?</span>
+        <select
+          value={interest}
+          onChange={(event) => setInterest(event.target.value)}
+          className="w-full rounded-[var(--radius-control)] border border-border bg-surface-soft px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent"
+        >
+          {interestOptions.map((option) => (
+            <option key={option.value || "none"} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <label className="space-y-2 text-sm font-medium text-text-strong">
         <span>What do you need built?</span>
         <textarea
           value={values.projectNeeds}
@@ -161,6 +191,8 @@ export function ProjectIntakeForm() {
           {feedback}
         </div>
       ) : null}
+
+      <TurnstileWidget onToken={handleToken} />
 
       <button
         type="submit"

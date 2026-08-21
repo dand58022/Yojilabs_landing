@@ -25,7 +25,7 @@ export async function submitMockGeneralContact(
       state: "error",
       submissionId: null,
       message:
-        "We could not send your message in localhost mode. Please try again in a moment.",
+        "Local preview: simulated send failure. Try again in a moment.",
       payload: input,
     };
   }
@@ -34,7 +34,7 @@ export async function submitMockGeneralContact(
     state: "success",
     submissionId: createSubmissionId("contact"),
     message:
-      "Your message was received in localhost mode. We typically reply within 1–2 business days.",
+      "Local preview: your message was captured (nothing was sent). We typically reply within 1–2 business days.",
     payload: input,
   };
 }
@@ -50,7 +50,7 @@ export async function submitMockProjectIntake(
       state: "error",
       submissionId: null,
       message:
-        "We could not save your project details in localhost mode. Please try again.",
+        "Local preview: simulated save failure. Please try again.",
       payload: input,
     };
   }
@@ -59,7 +59,7 @@ export async function submitMockProjectIntake(
     state: "success",
     submissionId: createSubmissionId("intake"),
     message:
-      "Your project details were captured in localhost mode so the next conversation can start with context.",
+      "Local preview: your project details were captured (nothing was sent).",
     payload: input,
   };
 }

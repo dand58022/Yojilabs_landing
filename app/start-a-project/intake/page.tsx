@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
@@ -16,13 +17,15 @@ export default function StartProjectIntakePage() {
                 Give us the context before the call.
               </h1>
               <p className="prose-measure text-lg leading-8 text-text-muted">
-                This intake form stays on-site and runs fully in localhost mode.
-                It is meant to capture enough detail that the next conversation can
-                start with requirements, constraints, and goals already on the table.
+                Tell us enough that the first conversation can start with requirements,
+                constraints, and goals already on the table. We read every submission
+                before we reply.
               </p>
             </div>
 
-            <ProjectIntakeForm />
+            <Suspense fallback={null}>
+              <ProjectIntakeForm />
+            </Suspense>
           </div>
         </section>
       </main>

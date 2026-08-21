@@ -7,6 +7,8 @@ export const siteConfig = {
   description:
     "Custom software, automation, and internal tools built around real business workflows.",
   contactEmail: "hello@yojilabs.com",
+  tagline: "Custom software and automation studio",
+  socialProfiles: ["https://github.com/yoji-labs"],
   deploymentStage: seoEnv.deploymentStage,
   allowIndexing: seoEnv.allowIndexing,
   brand: {

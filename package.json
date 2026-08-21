@@ -2,22 +2,28 @@
   "name": "yojilabs-landing-page",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "playwright test"
+    "test": "playwright test",
+    "typecheck": "tsc --noEmit",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "next": "16.3.1",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.62.1",
-    "@tailwindcss/postcss": "^4",
     "@playwright/test": "^1.55.1",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

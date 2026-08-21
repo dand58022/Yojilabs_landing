@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DemoTierBadge } from "@/components/landing/DemoTierBadge";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
 import { demoContent } from "@/content/demo-content";
 import { siteContent } from "@/content/site-content";
@@ -25,9 +26,6 @@ export function DemosPlaceholderGrid() {
           <p className="prose-measure text-lg leading-8 text-text-muted">
             {demosRoute.description}
           </p>
-          <p className="text-sm font-medium text-text-muted">
-            {demosRoute.preparationNote}
-          </p>
         </div>
 
         <div className="grid gap-5 lg:grid-cols-3">
@@ -40,9 +38,10 @@ export function DemosPlaceholderGrid() {
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
                     {demo.category}
                   </p>
-                  <span className="rounded-full border border-border/80 bg-surface-soft px-3 py-1 text-xs font-medium text-text-muted">
-                    {demo.destination.availabilityLabel}
-                  </span>
+                  <DemoTierBadge
+                    tier={demo.destination.tier}
+                    label={demo.destination.availabilityLabel}
+                  />
                 </div>
 
                 <h2 className="mt-6 text-3xl">{demo.title}</h2>
@@ -71,11 +70,11 @@ export function DemosPlaceholderGrid() {
                       href={link}
                       className="inline-flex items-center text-sm font-semibold text-accent transition hover:text-accent/80"
                     >
-                      Continue with this direction
+                      {demo.destination.linkLabel} →
                     </Link>
                   ) : (
                     <span className="text-sm font-semibold text-text-muted">
-                      Route connection coming next
+                      {demo.destination.availabilityLabel}
                     </span>
                   )}
                 </div>
