@@ -1,14 +1,17 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { siteConfig } from "@/lib/site-config";
 
 export const alt = `${siteConfig.name} — ${siteConfig.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Satori can't read woff2, and the repo only ships Satoshi as woff2, so the
-// card uses the bundled default sans. Drop a Satoshi .ttf into app/fonts and
-// pass it via `fonts` to match the site exactly.
-export default function OpenGraphImage() {
+// Satori can't read woff2 or variable fonts, so the card uses the static
+// Satoshi Bold TTF from the Fontshare bundle (free for commercial use).
+export default async function OpenGraphImage() {
+  const satoshiBold = await readFile(join(process.cwd(), "app/fonts/Satoshi-Bold.ttf"));
+
   return new ImageResponse(
     (
       <div
@@ -21,7 +24,7 @@ export default function OpenGraphImage() {
           padding: "72px 80px",
           background: "linear-gradient(135deg, #F1E6CC 0%, #F6ECD7 60%, #FCF7EE 100%)",
           color: "#2B2520",
-          fontFamily: "sans-serif",
+          fontFamily: "Satoshi",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
@@ -68,6 +71,9 @@ export default function OpenGraphImage() {
         </div>
       </div>
     ),
-    size,
+    {
+      ...size,
+      fonts: [{ name: "Satoshi", data: satoshiBold, weight: 700, style: "normal" }],
+    },
   );
 }
