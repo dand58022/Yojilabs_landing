@@ -64,7 +64,28 @@ function readMarketingRouteBase(
   return value ? normalizeMarketingRouteBase(value, key) : fallback;
 }
 
-const siteUrl = readAbsoluteUrl("NEXT_PUBLIC_SITE_URL", DEFAULT_SITE_URL);
+function resolveSiteUrl(): AbsoluteUrl {
+  const explicit = readEnv("NEXT_PUBLIC_SITE_URL");
+
+  if (explicit) {
+    return ensureAbsoluteUrl(explicit, "NEXT_PUBLIC_SITE_URL");
+  }
+
+  // On Vercel, fall back to the deployment's own host so canonical/OG/sitemap
+  // URLs are never "localhost" on a preview or an un-configured production build.
+  const vercelHost =
+    process.env.VERCEL_ENV === "production"
+      ? readEnv("VERCEL_PROJECT_PRODUCTION_URL")
+      : readEnv("VERCEL_BRANCH_URL") ?? readEnv("VERCEL_URL");
+
+  if (vercelHost) {
+    return ensureAbsoluteUrl(`https://${vercelHost}`, "VERCEL_URL");
+  }
+
+  return DEFAULT_SITE_URL;
+}
+
+const siteUrl = resolveSiteUrl();
 const explicitStage = readEnv("NEXT_PUBLIC_DEPLOYMENT_STAGE");
 
 function getDeploymentStage(siteUrlValue: AbsoluteUrl): DeploymentStage {
@@ -118,6 +139,11 @@ export const env: SiteUrlConfig = {
     generalContact: readOptionalAbsoluteUrl("NEXT_PUBLIC_CONTACT_ENDPOINT"),
     projectIntake: readOptionalAbsoluteUrl("NEXT_PUBLIC_PROJECT_INTAKE_ENDPOINT"),
     bookingRequest: readOptionalAbsoluteUrl("NEXT_PUBLIC_BOOKING_ENDPOINT"),
+  },
+  integrations: {
+    calLink: readEnv("NEXT_PUBLIC_CAL_LINK") ?? null,
+    turnstileSiteKey: readEnv("NEXT_PUBLIC_TURNSTILE_SITE_KEY") ?? null,
+    pantryTourUrl: readOptionalAbsoluteUrl("NEXT_PUBLIC_PANTRY_TOUR_URL"),
   },
 };
 

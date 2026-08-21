@@ -16,7 +16,9 @@ export type InternalRoute =
   | "/terms"
   | "/start-a-project"
   | "/start-a-project/book"
-  | "/start-a-project/intake";
+  | "/start-a-project/intake"
+  | `/start-a-project/intake?interest=${string}`
+  | `/demos/${DemoId}`;
 
 export type AnchorRoute = "/#services" | "/#demos" | "/#about" | "/#contact";
 
@@ -29,7 +31,13 @@ export type DemoId =
   | "bookings-website"
   | "operations-dashboard";
 
-export type DemoAvailabilityStatus = "live" | "guided-preview" | "coming-soon";
+/**
+ * Demo tiers, matched to what actually exists:
+ * - "interactive-preview": a real product, shown as a guided walkthrough with sample data.
+ * - "concept": scoped but not built; the card invites a conversation, never an app link.
+ * - "live": reserved for a future self-serve product that anonymous visitors can open.
+ */
+export type DemoTier = "interactive-preview" | "concept" | "live";
 
 export type MockSubmissionState = "success" | "error";
 
@@ -38,6 +46,15 @@ export interface ExternalAppUrls {
   readonly kitchenInventoryDemo: AbsoluteUrl;
   readonly bookingsWebsiteDemo: MaybeAbsoluteUrl;
   readonly operationsDashboardDemo: MaybeAbsoluteUrl;
+}
+
+export interface IntegrationConfig {
+  /** Cal.com link, e.g. "yojilabs/intro". Null → booking falls back to the request-times card. */
+  readonly calLink: string | null;
+  /** Cloudflare Turnstile site key. Null → widget hidden, server skips token verification. */
+  readonly turnstileSiteKey: string | null;
+  /** Embed URL of the recorded Pantry walkthrough (Arcade / Supademo). Null → in-page preview. */
+  readonly pantryTourUrl: MaybeAbsoluteUrl;
 }
 
 export interface ContactEndpointUrls {
@@ -53,6 +70,7 @@ export interface SiteUrlConfig {
   readonly marketingRouteBase: MarketingRouteBase;
   readonly externalApps: ExternalAppUrls;
   readonly contactEndpoints: ContactEndpointUrls;
+  readonly integrations: IntegrationConfig;
 }
 
 export interface BrandAssetPaths {
@@ -63,6 +81,8 @@ export interface BrandAssetPaths {
 
 export interface SiteConfig {
   readonly name: string;
+  readonly tagline: string;
+  readonly socialProfiles: readonly AbsoluteUrl[];
   readonly titleTemplate: `%s | ${string}`;
   readonly description: string;
   readonly contactEmail: string;
@@ -154,22 +174,12 @@ export type DemoLink =
       readonly href: AbsoluteUrl;
     };
 
-export type DemoDestination =
-  | {
-      readonly status: "live";
-      readonly availabilityLabel: string;
-      readonly link: DemoLink;
-    }
-  | {
-      readonly status: "guided-preview";
-      readonly availabilityLabel: string;
-      readonly link: DemoLink | null;
-    }
-  | {
-      readonly status: "coming-soon";
-      readonly availabilityLabel: string;
-      readonly link: null;
-    };
+export interface DemoDestination {
+  readonly tier: DemoTier;
+  readonly availabilityLabel: string;
+  readonly link: DemoLink | null;
+  readonly linkLabel: string;
+}
 
 export interface DemoExperience {
   readonly id: DemoId;
@@ -204,6 +214,7 @@ export interface DemosPreviewSectionContent {
   readonly eyebrow: string;
   readonly title: string;
   readonly intro: string;
+  readonly tierNote: string;
   readonly demoOrder: readonly DemoId[];
   readonly cta: LinkDefinition;
 }
@@ -251,7 +262,6 @@ export interface StartProjectRouteContent {
 export interface DemosRouteContent {
   readonly title: string;
   readonly description: string;
-  readonly preparationNote: string;
   readonly demoOrder: readonly DemoId[];
 }
 

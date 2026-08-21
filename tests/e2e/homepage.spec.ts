@@ -144,13 +144,9 @@ test("general contact form reaches mocked success state", async ({ page }) => {
   await page.getByLabel("Message").fill("We need help tightening our inventory and reporting flow.");
   await page.getByRole("button", { name: "Send Message" }).click();
 
-  await expect(page.getByText("Message received")).toBeVisible();
+  await expect(page.getByText("Sent — check your inbox")).toBeVisible();
   await expect(page.getByRole("button", { name: "Send another message" })).toBeVisible();
-  await expect(
-    page.getByText(
-      "Your message was received in localhost mode. We typically reply within 1–2 business days.",
-    ),
-  ).toBeVisible();
+  await expect(page.getByText(/Local preview: your message was captured/)).toBeVisible();
 });
 
 test("how we work content sits near the section top without a large dead zone", async ({ page }) => {

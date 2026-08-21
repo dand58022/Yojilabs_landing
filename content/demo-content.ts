@@ -1,4 +1,3 @@
-import { siteConfig } from "@/lib/site-config";
 import type { DemoExperience } from "@/types/site";
 
 export const demoContent = [
@@ -11,12 +10,10 @@ export const demoContent = [
     heroCaption:
       "Track stock, usage, and prep gaps in one place so your kitchen can move faster with fewer surprises.",
     destination: {
-      status: "live",
-      availabilityLabel: "Live demo",
-      link: {
-        kind: "external",
-        href: siteConfig.urls.externalApps.kitchenInventoryDemo,
-      },
+      tier: "interactive-preview",
+      availabilityLabel: "Interactive preview",
+      link: { kind: "internal", href: "/demos/kitchen-inventory" },
+      linkLabel: "Walk through the live app",
     },
     previewCard: {
       title: "Pantry inventory control",
@@ -120,14 +117,10 @@ export const demoContent = [
     heroCaption:
       "Keep bookings, confirmations, availability, and client context inside one scheduling workflow.",
     destination: {
-      status: "guided-preview",
-      availabilityLabel: "Guided preview",
-      link: siteConfig.urls.externalApps.bookingsWebsiteDemo
-        ? {
-            kind: "external",
-            href: siteConfig.urls.externalApps.bookingsWebsiteDemo,
-          }
-        : null,
+      tier: "concept",
+      availabilityLabel: "Concept",
+      link: { kind: "internal", href: "/start-a-project/intake?interest=bookings-website" },
+      linkLabel: "Talk to us about building this",
     },
     previewCard: {
       title: "Client scheduling and booking",
@@ -142,7 +135,7 @@ export const demoContent = [
         "Supports client context, confirmations, and booking-page integration together.",
         "Keeps scheduling visibly distinct from inventory and reporting products.",
       ],
-      availabilityNote: "This demo is being prepared as a guided preview for early iterations.",
+      availabilityNote: "Scoped and ready to build with a first client. The preview above shows the intended workflow.",
     },
     heroPreview: {
       appName: "Yoji Schedule",
@@ -233,9 +226,10 @@ export const demoContent = [
     heroCaption:
       "Surface the KPIs, operational bottlenecks, and team updates that help owners make decisions without digging.",
     destination: {
-      status: "coming-soon",
-      availabilityLabel: "Coming soon",
-      link: null,
+      tier: "concept",
+      availabilityLabel: "Concept",
+      link: { kind: "internal", href: "/start-a-project/intake?interest=operations-dashboard" },
+      linkLabel: "Scope this with us",
     },
     previewCard: {
       title: "Operational visibility",
@@ -250,7 +244,7 @@ export const demoContent = [
         "Flexible enough for hospitality, service, and internal-tool contexts.",
         "Pairs naturally with automation and data-intelligence work.",
       ],
-      availabilityNote: "This concept is queued as a coming-soon demo while live sample data is prepared.",
+      availabilityNote: "Scoped; looking for a launch partner. The preview above shows the intended review layer.",
     },
     heroPreview: {
       appName: "Yoji Ops",

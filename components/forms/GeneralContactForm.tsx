@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { submitMockGeneralContact } from "@/lib/mocks/mock-submissions";
+import { useCallback, useState } from "react";
+import { HoneypotField } from "@/components/forms/HoneypotField";
+import { TurnstileWidget } from "@/components/forms/TurnstileWidget";
+import { validateGeneralContact, type FieldErrors } from "@/lib/forms/schema";
+import { formsUseMocks, submitGeneralContact } from "@/lib/forms/submit";
 import type { GeneralContactFormInput } from "@/types/site";
 
 interface GeneralContactFormProps {
@@ -10,7 +13,7 @@ interface GeneralContactFormProps {
   embedded?: boolean;
 }
 
-type FormErrors = Partial<Record<keyof GeneralContactFormInput, string>>;
+type FormErrors = FieldErrors<GeneralContactFormInput>;
 
 const initialValues: GeneralContactFormInput = {
   name: "",
@@ -18,28 +21,6 @@ const initialValues: GeneralContactFormInput = {
   subject: "",
   message: "",
 };
-
-function validate(values: GeneralContactFormInput) {
-  const errors: FormErrors = {};
-
-  if (!values.name.trim()) {
-    errors.name = "Please share your name.";
-  }
-
-  if (!values.email.trim()) {
-    errors.email = "Please share your email.";
-  }
-
-  if (!values.subject.trim()) {
-    errors.subject = "Please add a subject.";
-  }
-
-  if (!values.message.trim()) {
-    errors.message = "Please include a short message.";
-  }
-
-  return errors;
-}
 
 export function GeneralContactForm({
   title,
@@ -52,11 +33,15 @@ export function GeneralContactForm({
     "idle",
   );
   const [feedback, setFeedback] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [startedAt] = useState(() => Date.now());
+  const handleToken = useCallback((token: string | null) => setTurnstileToken(token), []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const nextErrors = validate(values);
+    const nextErrors = validateGeneralContact(values);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
@@ -66,14 +51,18 @@ export function GeneralContactForm({
 
     setSubmitState("submitting");
 
-    const result = await submitMockGeneralContact(values, {
-      // Keep the keyword trigger for local QA without exposing debug instructions in the UI.
-      simulate: values.subject.toLowerCase().includes("error") ? "error" : "success",
+    const result = await submitGeneralContact(values, {
+      company_website: honeypot,
+      startedAt,
+      turnstileToken,
     });
 
     if (result.state === "error") {
       setSubmitState("error");
       setFeedback(result.message);
+      if (result.fieldErrors) {
+        setErrors(result.fieldErrors as FormErrors);
+      }
       return;
     }
 
@@ -107,7 +96,7 @@ export function GeneralContactForm({
       {submitState === "success" ? (
         <div className="mt-5 space-y-4 rounded-[var(--radius-card)] border border-[#D8C08F] bg-surface-soft px-5 py-5">
           <p className="text-base font-semibold text-text-strong">
-            Message received
+            Sent — check your inbox
           </p>
           <p className="text-sm leading-7 text-text-muted">{feedback}</p>
           <p className="text-sm leading-7 text-text-muted">{responseNote}</p>
@@ -123,7 +112,8 @@ export function GeneralContactForm({
           </button>
         </div>
       ) : (
-        <form className="mt-5 space-y-4" onSubmit={handleSubmit} noValidate>
+        <form className="relative mt-5 space-y-4" onSubmit={handleSubmit} noValidate>
+          <HoneypotField value={honeypot} onChange={setHoneypot} />
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="space-y-2 text-sm font-medium text-text-strong">
               <span>Name</span>
@@ -190,7 +180,14 @@ export function GeneralContactForm({
             </div>
           ) : null}
 
-          <div className="flex flex-wrap items-center justify-end gap-4">
+          <TurnstileWidget onToken={handleToken} />
+
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <p className="text-xs leading-6 text-text-muted">
+              {formsUseMocks
+                ? "Local preview: type “error” in the subject to see the failure state."
+                : "We reply from hello@yojilabs.com within two business days."}
+            </p>
             <button
               type="submit"
               disabled={submitState === "submitting"}

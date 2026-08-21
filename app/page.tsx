@@ -7,6 +7,7 @@ import { LandingHeader } from "@/components/landing/LandingHeader";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { SectionProgressRail } from "@/components/landing/SectionProgressRail";
 import { ServicesSection } from "@/components/landing/ServicesSection";
+import { ServicesJsonLd } from "@/components/seo/JsonLd";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <SectionProgressRail />
 
       <main>
+        <ServicesJsonLd />
         <HeroSection />
         <ServicesSection />
         <DemosPreviewSection />

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SystemLineAccent } from "@/components/brand/SystemLineAccent";
+import { DemoTierBadge } from "@/components/landing/DemoTierBadge";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
 import { ViewportReveal } from "@/components/landing/ViewportReveal";
 import { demoContent } from "@/content/demo-content";
@@ -157,7 +158,6 @@ function WorkPreviewGraphic({ demo }: { demo: DemoExperience }) {
 
 export function DemosPreviewSection() {
   const { demosPreview } = siteContent.home;
-  const { demosRoute } = siteContent;
   const demos = demosPreview.demoOrder
     .map((demoId) => demoContent.find((demo) => demo.id === demoId))
     .filter((demo) => demo !== undefined);
@@ -183,7 +183,7 @@ export function DemosPreviewSection() {
             <div className="flex items-center gap-3">
               <SystemLineAccent className="hidden w-[4.8rem] text-accent/45 sm:block" />
               <p className="text-sm font-medium text-text-muted">
-                {demosRoute.preparationNote}
+                {demosPreview.tierNote}
               </p>
             </div>
 
@@ -207,9 +207,10 @@ export function DemosPreviewSection() {
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
                       {demo.category}
                     </p>
-                    <span className="rounded-full border border-border/80 bg-surface-soft px-3 py-1 text-xs font-medium text-text-muted">
-                      {demo.destination.availabilityLabel}
-                    </span>
+                    <DemoTierBadge
+                      tier={demo.destination.tier}
+                      label={demo.destination.availabilityLabel}
+                    />
                   </div>
 
                   <div className="mt-5">
@@ -238,11 +239,11 @@ export function DemosPreviewSection() {
                         href={demoLink}
                         className="inline-flex items-center text-sm font-semibold text-accent transition hover:text-accent/80"
                       >
-                        Explore this direction
+                        {demo.destination.linkLabel} →
                       </Link>
                     ) : (
                       <p className="text-sm font-semibold text-text-muted">
-                        The full route and demo handoff are coming next.
+                        {demo.destination.availabilityLabel}
                       </p>
                     )}
                   </div>

@@ -25,3 +25,6 @@ Thumbs.db
 .env.production.local
 
 next-env.d.ts
+*.tsbuildinfo
+.vercel
+.env*

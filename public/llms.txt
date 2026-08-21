@@ -1,0 +1,20 @@
+# YojiLabs
+
+> YojiLabs is a custom software and automation studio. We build operations systems, internal tools, and integrations around real business workflows — starting with hospitality and service businesses.
+
+Contact: hello@yojilabs.com
+
+## Pages
+
+- [Home](https://yojilabs.com/): What we build and how we work.
+- [Demos](https://yojilabs.com/demos): One working product (Kitchen Inventory / Pantry) and two scoped concepts.
+- [Kitchen Inventory demo](https://yojilabs.com/demos/kitchen-inventory): Guided walkthrough of the live Pantry app with sample data.
+- [Start a project](https://yojilabs.com/start-a-project): Book a call or send project details.
+- [Contact](https://yojilabs.com/contact)
+
+## Services
+
+- Custom software
+- Automation and integrations
+- Operations systems
+- Data and intelligence

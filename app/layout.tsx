@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import { Source_Serif_4 } from "next/font/google";
 import localFont from "next/font/local";
+import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -49,9 +50,18 @@ const sourceSerif = Source_Serif_4({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.urls.siteUrl),
   title: {
-    default: siteConfig.name,
+    default: `${siteConfig.name} — ${siteConfig.tagline}`,
     template: siteConfig.titleTemplate,
   },
+  applicationName: siteConfig.name,
+  keywords: [
+    "custom software",
+    "business automation",
+    "internal tools",
+    "operations systems",
+    "restaurant inventory software",
+    "software agency",
+  ],
   description: siteConfig.description,
   alternates: {
     canonical: siteConfig.urls.canonicalUrl,
@@ -62,20 +72,12 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.urls.ogImageUrl,
-        width: 1200,
-        height: 630,
-        alt: `${siteConfig.name} social preview`,
-      },
-    ],
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [siteConfig.urls.ogImageUrl],
   },
   robots: {
     index: siteConfig.allowIndexing,
@@ -98,7 +100,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       lang="en"
       className={`${satoshi.variable} ${inter.variable} ${sourceSerif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <OrganizationJsonLd />
+        {children}
+      </body>
     </html>
   );
 }
